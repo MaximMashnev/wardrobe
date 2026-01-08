@@ -18,7 +18,6 @@ import { RouterOutlet, RouterLinkActive, RouterLinkWithHref } from '@angular/rou
 export class ProfilePage {
   myProfile: boolean = false;
   profileId = input.required<string>();
-  profileInfo: any;
 
   constructor () {
 
@@ -57,7 +56,6 @@ export class ProfilePage {
     ]
 
     if (Id == 0) this.myProfile = true;
-    console.log(this.profileInfo);
-    return this.profileInfo = profilesInfo[Id];
+    return profilesInfo[Id];
   }
 }
