@@ -1,0 +1,51 @@
+.tape-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tape-card-n {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--main-bg-color);
+  border-radius: 16px;
+  border: 1px solid var(--cards-color);
+  width: 315px;
+  height: 390px;
+}
+
+.card-info-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.user-info-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.filters-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.user-info-card {
+  max-width: 150px;
+  max-height: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+tui-textfield {
+  min-width: 130px;
+  height: 43px;
+}

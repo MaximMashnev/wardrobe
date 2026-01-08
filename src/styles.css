@@ -1,1 +1,453 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/inter.min.css");
+
+:root {
+  --main-bg-color: #FFFFFF;
+  --cards-color: #F7F7F9;
+  --second-bg-color: #EFEFF4;
+
+  --main-font-color: #111111;
+  --second-font-color: #6B6B6B;
+  --inactive-font-color: #9A9A9A;
+
+  --hover-actions-color: #6C5CE7;
+  --main-actions-color: #8E7CFF;
+  --like-color: #EB5757;
+
+  --main-font: 'Inter', sans-serif;
+}
+
+tui-root {
+  height: 100%;
+  width: 100%;
+}
+
+@font-face {
+  font-family: 'Inter', sans-serif;
+  src: url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/inter.min.css");
+}
+
+h1 {
+  font-family: var(--main-font);
+  font-size: 36px;
+  font-weight: 600; /*Semi Bold*/
+  margin: 0;
+}
+
+h2 {
+  font-family: var(--main-font);
+  font-size: 28px;
+  font-weight: 700; /*Bold*/
+  margin: 0;
+}
+
+h3 {
+  font-family: var(--main-font);
+  font-size: 20px;
+  font-weight: 700; /*Bold*/
+  margin: 0;
+}
+
+.normal {
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: 400; /*regular*/
+}
+
+.sec-text {
+  color: var(--second-font-color);
+}
+
+.inac {
+  color: var(--inactive-font-color);
+}
+
+.w {
+  color: var(--main-bg-color);
+}
+
+.m-normal {
+  font-family: var(--main-font);
+  font-size: 14px;
+  font-weight: 400; /*regular*/
+}
+
+.b-normal {
+  font-family: var(--main-font);
+  font-size: 24px;
+  font-weight: 400; /*regular*/
+}
+
+.btn-font {
+  font-family: var(--main-font);
+  font-size: 1rem;
+  font-weight: 500; /*medium*/
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--cards-color);
+  width: 100%;
+  height: 100%;
+}
+
+.main-text-input {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 16px;
+  border: 1px solid var(--cards-color);
+  width: calc(100% - 40px);
+  height: calc(39px - 30px - 2px);
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: 500; /*medium*/
+  color: var(--second-font-color);
+}
+
+.nav-btn {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 16px;
+  border: none;
+  width: 100%;
+  height: 39px;
+  background: var(--main-actions-color);
+  color: var(--main-bg-color);
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: 500; /*medium*/
+}
+
+a {
+  color: var(--main-actions-color);
+  text-decoration: none;
+}
+
+.log-reg-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: var(--main-bg-color);
+  width: 980px;
+  height: 666px;
+  border-radius: 16px;
+  gap: 55px;
+}
+
+.imageLogReg {
+  background-image: url('E:/projects/wardrobe/assets/images/image 19.jpg');
+  width: 396px;
+  height: 666px;
+  border-radius: 16px 0px 0px 16px;
+}
+
+.log-reg-block {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 35px;
+  width: 453px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-data {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: start;
+}
+
+.form-reg {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+input.like {
+  color: var(--inactive-font-color);
+  border: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.like-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  border: 1px solid var(--cards-color);
+  max-width: calc(77px - 2px - 24px);
+  max-height: calc(43px - 2px - 18px - 4px);
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 9px;
+  padding-right: 9px;
+  gap: 2px;
+}
+
+.btn-underline {
+  width: 140px;
+  height: 39px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border: none;
+  border-bottom: 2px solid var(--inactive-font-color);
+  background-color: var(--main-bg-color);
+  cursor: pointer;
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: 500; /*medium*/
+  color: var(--inactive-font-color);
+}
+
+.btn-underline-active {
+  border-bottom: 2px solid var(--main-actions-color);
+  font-family: var(--main-font);
+  color: var(--main-font-color);
+}
+
+.nav-btns-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  max-width: 580px;
+  min-width: 300px;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.grid-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 30px;
+  column-gap: 15px;
+}
+
+.over-hide {
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.btn-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 43px;
+  height: 43px;
+  border-radius: 16px;
+  border: 1px solid var(--inactive-font-color);
+  background-color: var(--main-bg-color);
+  color: var(--inactive-font-color);
+}
+
+.cost-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  border: 1px solid var(--inactive-font-color);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  height: calc(43px - 24px - 0.8*2px);
+  background-color: var(--main-bg-color);
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: 400; /*regular*/
+  color: var(--inactive-font-color);
+  gap: 2px;
+}
+
+.card-image {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 278px;
+  height: 392px;
+  overflow: hidden;
+  background-color: var(--main-bg-color);
+  border-radius: 16px;
+  border: 1px solid var(--cards-color);
+}
+
+.photo-card-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 276px;
+}
+
+.photo-card {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--cards-color);
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 245px;
+  height: 97px;
+  margin-left: calc((276px - 245px) / 2);
+  margin-right: calc((276px - 245px) / 2);
+}
+
+.info-about-item{
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: row;
+  max-width: 245px;
+  gap: 2px;
+}
+
+.control-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.control-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+
+.line-data {
+  display: flex;
+  justify-content: center;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  border-radius: 50%;
+  background-color: var(--cards-color);
+}
+
+.nav-page {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.user-outfits-likes-card {
+  position: relative;
+  width: 300px;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.hover-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+.card-main-img {
+  position: relative;
+  width: 315px;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.card-main-img:hover::after, .user-outfits-likes-card:hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.card-main-img:hover .hover-text, .user-outfits-likes-card:hover .hover-text{
+  opacity: 1;
+}
+
+.photo-card {
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card-like-block {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 1000px ){
+  .log-reg-container {
+    width: auto;
+    height: auto;
+  }
+
+  .imageLogReg {
+    opacity: 0;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+  }
+
+  .log-reg-block {
+    width: auto;
+    padding: 1rem;
+  }
+
+  .log-reg-container {
+    align-items: center;
+  }
+
+  .grid-cards {
+    justify-content: center;
+  }
+
+  .nav-btns-container {
+    justify-content: space-around;
+  }
+
+  .btn-font {
+    font-size: 0.75rem;
+  }
+}

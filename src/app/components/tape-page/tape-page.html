@@ -1,0 +1,115 @@
+<div class="tape-container">
+  <div class="filters-container">
+    <tui-textfield
+        tuiChevron
+        >
+      <input
+          placeholder="Select destination"
+          tuiComboBox
+          [(ngModel)]="value"
+      />
+
+      <tui-data-list-wrapper
+          *tuiTextfieldDropdown
+          new
+          [items]="countries$ | async | tuiFilterByInput"
+      />
+    </tui-textfield>
+
+    <tui-textfield
+        tuiChevron
+
+        >
+      <input
+          placeholder="Select destination"
+          tuiComboBox
+          [(ngModel)]="value1"
+      />
+
+      <tui-data-list-wrapper
+          *tuiTextfieldDropdown
+          new
+          [items]="countries$ | async | tuiFilterByInput"
+      />
+    </tui-textfield>
+
+    <tui-textfield
+        tuiChevron
+
+        >
+      <input
+          placeholder="Select destination"
+          tuiComboBox
+          [(ngModel)]="value2"
+      />
+
+      <tui-data-list-wrapper
+          *tuiTextfieldDropdown
+          new
+          [items]="countries$ | async | tuiFilterByInput"
+      />
+    </tui-textfield>
+
+    <tui-textfield
+        tuiChevron
+
+        >
+      <input
+          placeholder="Select destination"
+          tuiComboBox
+          [(ngModel)]="value3"
+      />
+
+      <tui-data-list-wrapper
+          *tuiTextfieldDropdown
+          new
+          [items]="countries$ | async | tuiFilterByInput"
+      />
+    </tui-textfield>
+  </div>
+  <div class="grid-cards">
+    @for (card of cards; track card.id) {
+      <div class="tape-card-n">
+        <a class="card-main-img" [href]="card.id">
+          <img class="photo-card" [src]="card.imageImage">
+          <div class="hover-text"><span class="b-normal w">Смотреть образ</span></div>
+        </a>
+        <div class="card-info-block">
+          <div class="user-info-block">
+            <div class="user-avatar">
+              <tui-avatar
+              [src]="card.imageProfile"
+              size="l"
+              />
+            </div>
+            <div class="user-info-card">
+              <span class="normal over-hide">
+                {{card.username}}
+              </span><br>
+              <span class="m-normal sec-text over-hide">
+                {{card.imageStyle}}
+              </span>
+            </div>
+          </div>
+          @if (isAuthorized) {
+            <div class="card-like-block">
+              <div class="like-btn">
+                <input
+                  class="like"
+                  tuiLike="var(--like-color)"
+                  type="checkbox"
+                  appearance=""
+                  size="m"
+                  [(ngModel)] = "card.beenLiked"
+                >
+                <span class="normal inac">
+                  {{card.likesCounter}}k
+                </span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
