@@ -1,0 +1,44 @@
+.select-image {
+  width: calc(305px - 0.8px*2);
+  height: calc(500px - 0.8px*2);
+}
+
+.social-bts {
+  display: flex;
+  flex-direction: row;
+  padding-left: 7.5rem;
+  gap: 10px;
+}
+
+.images-block {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.m-img {
+  width: calc(109px - 0.8px*2);
+  height: calc(130px - 0.8px*2);
+  cursor: pointer;
+}
+
+.activeImg {
+  outline: 2px solid var(--hover-actions-color);
+}
+
+.m-img:hover {
+  outline: 2px dashed var(--hover-actions-color);
+}
+
+.col-images {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stuffs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}

@@ -1,0 +1,127 @@
+<div class="dialog-window">
+  <div class="dialog-title">
+    <h3>Добавление/редактировние образа</h3>
+    <button class="btn-m-dialog" (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="dialog-main-content">
+    <div class="load-photo-block">
+      <div class="loading-photo">
+        <span class="m-normal">Загрузите главное изображение</span>
+        <button class="btn-m-dialog">
+          <mat-icon>add</mat-icon>
+        </button>
+        <input type="text" class="main-text-input" placeholder="Ссылка на изображение">
+      </div>
+      <div class="loading-photo">
+        <span class="m-normal">Загрузите доп. изображение 1</span>
+        <button class="btn-m-dialog">
+          <mat-icon>add</mat-icon>
+        </button>
+        <input type="text" class="main-text-input" placeholder="Ссылка на изображение">
+      </div>
+      <div class="loading-photo">
+        <span class="m-normal">Загрузите доп. изображение 2</span>
+        <button class="btn-m-dialog">
+          <mat-icon>add</mat-icon>
+        </button>
+        <input type="text" class="main-text-input" placeholder="Ссылка на изображение">
+      </div>
+    </div>
+    <div class="obj-info-about">
+      <div class="form-data">
+        <span class="normal">Введите название образа</span>
+        <input class="main-text-input" type="url" placeholder="Название образа">
+      </div>
+      <div class="form-data">
+        <span class="normal">Стиль</span>
+        <tui-textfield
+          tuiChevron
+          [stringify]="strStyle"
+          tuiTextfieldSize="m"
+          >
+          <input
+              class="btn-font"
+              tuiSelect
+              placeholder="Стиль"
+              [(ngModel)]="style"
+          />
+
+          <tui-data-list-wrapper
+              *tuiTextfieldDropdown
+              new
+              [items]="listStyles"
+          />
+        </tui-textfield>
+      </div>
+      <div class="form-data">
+        <span class="normal">Тег</span>
+        <tui-textfield
+          tuiChevron
+          [stringify]="strTag"
+          tuiTextfieldSize="m"
+          >
+          <input
+              class="btn-font"
+              tuiSelect
+              placeholder="Тег"
+              [(ngModel)]="tag"
+          />
+
+          <tui-data-list-wrapper
+              *tuiTextfieldDropdown
+              new
+              [items]="listTags"
+          />
+        </tui-textfield>
+      </div>
+      <div class="dd-group">
+        <div class="dd-bts">
+          <button class="dropdown-sel sec-text" (click)="dd1IsOpen = !dd1IsOpen">
+            <span class="btn-font">Фильтр</span>
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <button class="btn-m-dialog">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <div class="dd-list" [style]="dd1IsOpen ? 'display: flex; opacity: 1': 'display: none; opacity: 0'">
+          <div class="card-stuff">
+            <img src="dsds">
+            <div class="stuff-info">
+                <span class="normal">Название</span>
+                <span class="normal sec-text">Тип вещи</span>
+                <span class="normal">Стоимость</span>
+                <span class="normal sec-text">Размер</span>
+                <div class="other-info">
+                  <button type="button" class="btn-control" tuiHint="Убрать">
+                      <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+            </div>
+          </div>
+
+          <div class="card-stuff">
+            <img src="dsds">
+            <div class="stuff-info">
+                <span class="normal">Название</span>
+                <span class="normal sec-text">Тип вещи</span>
+                <span class="normal">Стоимость</span>
+                <span class="normal sec-text">Размер</span>
+                <div class="other-info">
+                  <button type="button" class="btn-control" tuiHint="Убрать">
+                      <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="btn-6" type="submit">
+        Добавить\Сохранить
+      </button>
+    </div>
+  </div>
+</div>

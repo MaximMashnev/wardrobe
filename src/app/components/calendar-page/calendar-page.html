@@ -1,1 +1,75 @@
-<p>calendar-page works!</p>
+<div class="calendar-page">
+  <div class="l-col">
+    <div class="ai-window">
+      <h3>AI Stylist</h3>
+      <button class="btn-6" type="submit">Подбери мне идеальный образ на сегодня</button>
+    </div>
+    <div class="section-c">
+      <h3>Календарь</h3>
+      <div class="tui-calendar">
+        <tui-calendar
+            [value]="selectDate"
+            (dayClick)="onDayClick($event)"
+        />
+      </div>
+      @if (selectDate) {
+        @for (dayOutfit of dayOutfits; track $index) {
+          @if (selectDate) {
+            <div class="day-card-image">
+              <img class="image-block" [src]="dayOutfit.date">
+              <div class="info-block">
+                <h3 tuiHint="Дата">{{dayOutfit.date}}</h3>
+                <div class="outfit-info">
+                  <span class="normal" tuiHint="Название">{{dayOutfit.name}}</span>
+                  <span class="normal" tuiHint="Стоимость">{{dayOutfit.cost}}</span>
+                </div>
+              </div>
+            </div>
+          }
+        }
+      }
+    </div>
+  </div>
+
+  <div class="r-col">
+    <div class="section-c">
+      <h3>Образы</h3>
+      @for (dayOutfit of dayOutfits; track $index) {
+        <div class="day-card-image">
+          <img class="image-block" [src]="dayOutfit.image">
+          <div class="info-block">
+            <h3 tuiHint="Дата">{{dayOutfit.textDate}}</h3>
+            <div class="outfit-info">
+              <span class="normal" tuiHint="Название">{{dayOutfit.name}}</span>
+              <span class="normal" tuiHint="Стоимость">{{dayOutfit.cost}}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="section-c">
+      <h3>Погода</h3>
+        <div class="day-card-image">
+          <div class="weather-icon">
+            <mat-icon class="icon">{{dayWeather.weather.iconName}}</mat-icon>
+          </div>
+          <div class="info-block">
+            <h3 tuiHint="Состояние погоды">{{dayWeather.weather.weatherConditions}}</h3>
+            <div class="outfit-info">
+              <span class="normal" tuiHint="Температура">{{dayWeather.weather.temperature}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="day-card-image">
+          <img class="image-block" [src]="dayWeather.outfit.image">
+          <div class="info-block">
+            <h3 tuiHint="Дата">{{dayWeather.outfit.date}}</h3>
+            <div class="outfit-info">
+              <span class="normal" tuiHint="Название">{{dayWeather.outfit.name}}</span>
+              <span class="normal" tuiHint="Стоимость">{{dayWeather.outfit.cost}}</span>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

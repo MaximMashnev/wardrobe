@@ -2,6 +2,10 @@ import { Component, input } from '@angular/core';
 import { MatIconModule } from "@angular/material/icon";
 import {TuiHint} from '@taiga-ui/core';
 import { RouterOutlet, RouterLinkActive, RouterLinkWithHref } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEditProfile } from '../dialog-edit-profile/dialog-edit-profile';
+import { User } from '../../models/user';
+import { DialogProfileSettings } from '../dialog-profile-settings/dialog-profile-settings';
 
 @Component({
   selector: 'app-profile-page',
@@ -18,8 +22,11 @@ import { RouterOutlet, RouterLinkActive, RouterLinkWithHref } from '@angular/rou
 export class ProfilePage {
   myProfile: boolean = false;
   profileId = input.required<string>();
+  userData!: any;
 
-  constructor () {
+  constructor (
+    public dialog: MatDialog,
+  ) {
 
   }
 
@@ -29,7 +36,7 @@ export class ProfilePage {
         id: 1,
         username: 'UserName_1',
         imageProfile: 'https://i.pinimg.com/736x/5f/04/09/5f0409e4db4e898c99b925ca951ae201.jpg',
-        gender: 'женщина',
+        gender: 'Женский',
         height: 10,
         weight: 10,
         shoeSize: '42',
@@ -43,7 +50,7 @@ export class ProfilePage {
         id: 2,
         username: 'UserName_2',
         imageProfile: 'https://i.pinimg.com/736x/5f/04/09/5f0409e4db4e898c99b925ca951ae201.jpg',
-        gender: 'женщина',
+        gender: 'Мужской',
         height: 20,
         weight: 20,
         shoeSize: '52',
@@ -57,5 +64,29 @@ export class ProfilePage {
 
     if (Id == 0) this.myProfile = true;
     return profilesInfo[Id];
+  }
+
+  openDialogSettings() {
+    const dialogSettingsUser = this.dialog.open(DialogProfileSettings, {
+      width: '400px',
+      data: this.userData
+    });
+    dialogSettingsUser.afterClosed().subscribe((result: User) => {
+      if (result != null) {
+          console.log(result);
+      };
+    });
+  }
+
+  openDialogEditUser() {
+    const dialogEditUser = this.dialog.open(DialogEditProfile, {
+      width: '400px',
+      data: this.userData
+    });
+    dialogEditUser.afterClosed().subscribe((result: User) => {
+      if (result != null) {
+          console.log(result);
+      };
+    });
   }
 }

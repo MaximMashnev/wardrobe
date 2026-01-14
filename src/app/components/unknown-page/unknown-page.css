@@ -1,0 +1,15 @@
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.error-code {
+  font-family: var(--main-font);
+  font-size: 56px;
+  font-weight: 600; /*Semi Bold*/
+  margin: 0;
+}

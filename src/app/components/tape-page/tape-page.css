@@ -22,18 +22,11 @@
   margin: 10px;
 }
 
-.user-info-block {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-}
-
 .filters-container {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   gap: 20px;
 }
 
@@ -46,6 +39,33 @@
 }
 
 tui-textfield {
-  min-width: 130px;
-  height: 43px;
+  min-width: 160px;
+  width: 160px;
+  height: 38.59px;
+  --t-height: none;
+}
+
+[tuiBlock][data-size=s] {
+  padding: 0.706rem;
+  font: none;
+  --t-height: 38.59px;
+}
+
+[tuiBlock][data-size=m] {
+  height: 38.59px;
+  padding: 0.5rem;
+}
+
+[tuiAppearance][data-appearance=textfield] {
+  background-color: var(--main-bg-color);
+}
+
+tui-textfield::after {
+  height: 38.59px;
+}
+
+.filters-with-all {
+  display: flex;
+  flex-direction: row;
+  gap: .25rem;
 }

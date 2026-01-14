@@ -4,7 +4,7 @@
         tuiChevron
         >
       <input
-          placeholder="Select destination"
+          placeholder="Стиль"
           tuiComboBox
           [(ngModel)]="value"
       />
@@ -16,69 +16,28 @@
       />
     </tui-textfield>
 
-    <tui-textfield
-        tuiChevron
-
-        >
-      <input
-          placeholder="Select destination"
-          tuiComboBox
-          [(ngModel)]="value1"
+    <div class="filters-with-all">
+      <tui-filter
+          size="s"
+          class="item"
+          [items]="items"
+          [ngModel]="model$ | async"
+          (ngModelChange)="onModelChange($event)"
       />
-
-      <tui-data-list-wrapper
-          *tuiTextfieldDropdown
-          new
-          [items]="countries$ | async | tuiFilterByInput"
-      />
-    </tui-textfield>
-
-    <tui-textfield
-        tuiChevron
-
-        >
-      <input
-          placeholder="Select destination"
-          tuiComboBox
-          [(ngModel)]="value2"
-      />
-
-      <tui-data-list-wrapper
-          *tuiTextfieldDropdown
-          new
-          [items]="countries$ | async | tuiFilterByInput"
-      />
-    </tui-textfield>
-
-    <tui-textfield
-        tuiChevron
-
-        >
-      <input
-          placeholder="Select destination"
-          tuiComboBox
-          [(ngModel)]="value3"
-      />
-
-      <tui-data-list-wrapper
-          *tuiTextfieldDropdown
-          new
-          [items]="countries$ | async | tuiFilterByInput"
-      />
-    </tui-textfield>
+  </div>
   </div>
   <div class="grid-cards">
     @for (card of cards; track card.id) {
       <div class="tape-card-n">
-        <a class="card-main-img" [href]="card.id">
-          <img class="photo-card" [src]="card.imageImage">
+        <a class="card-main-img" (click)="openDialogShowOutfit(card.id)">
+          <img class="photo-card" [src]="card.mainImg">
           <div class="hover-text"><span class="b-normal w">Смотреть образ</span></div>
         </a>
         <div class="card-info-block">
           <div class="user-info-block">
             <div class="user-avatar">
               <tui-avatar
-              [src]="card.imageProfile"
+              [src]="card.imgProfile"
               size="l"
               />
             </div>
@@ -87,7 +46,7 @@
                 {{card.username}}
               </span><br>
               <span class="m-normal sec-text over-hide">
-                {{card.imageStyle}}
+                {{card.tag}}
               </span>
             </div>
           </div>
@@ -103,7 +62,7 @@
                   [(ngModel)] = "card.beenLiked"
                 >
                 <span class="normal inac">
-                  {{card.likesCounter}}k
+                  {{definitionLikes(card.likesCounter)}}
                 </span>
               </div>
             </div>

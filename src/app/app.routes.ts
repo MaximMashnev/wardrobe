@@ -11,28 +11,46 @@ import { MyStuffPage } from './components/my-stuff-page/my-stuff-page';
 import { MyImagesPage } from './components/my-images-page/my-images-page';
 import { UserOutfits } from './components/user-outfits/user-outfits';
 import { UserLikes } from './components/user-likes/user-likes';
+import { UnknownPage } from './components/unknown-page/unknown-page';
+import { DialogShowOutfit } from './components/dialog-show-outfit/dialog-show-outfit';
+import { DialogAddEditOutfit } from './components/dialog-add-edit-outfit/dialog-add-edit-outfit';
+import { DialogAddEditStuff } from './components/dialog-add-edit-stuff/dialog-add-edit-stuff';
+import { DialogSelStuffForOutfits } from './components/dialog-sel-stuff-for-outfits/dialog-sel-stuff-for-outfits';
+import { DialogEditProfile } from './components/dialog-edit-profile/dialog-edit-profile';
+import { DialogProfileSettings } from './components/dialog-profile-settings/dialog-profile-settings';
 
 export const routes: Routes = [
   {path: "authorization", component: LoginPage},
   {path: "registration", component: RegisterPage},
-  {path: "home", component: MainPage, children:
+  {path: "", component: MainPage, children:
     [
+      {path: "", redirectTo: "tape", pathMatch: "full"},
       {path: "tape", component: TapePage},
       {path: "ai-stylist", component: AiStylistPage},
       {path: "closet", component: ClosetPage, children:
         [
+          {path: "", redirectTo: "my-stuff", pathMatch: "full"},
           {path: "my-stuff", component: MyStuffPage},
-          {path: "my-images", component: MyImagesPage}
+          {path: "my-outfits", component: MyImagesPage, children:
+            [
+              {path: "adding-outfit", component: DialogAddEditOutfit},
+              {path: "editing-outfit", component: DialogAddEditOutfit}
+            ]
+          }
         ]
       },
       {path: "calendar", component: CalendarPage},
       {path: "profile/:profileId", component: ProfilePage, children:
         [
+          {path: "", redirectTo: "outfits", pathMatch: "full"},
           {path: "outfits", component: UserOutfits},
           {path: "likes", component: UserLikes}
         ]
       },
+      {path: "outfit/:outfitId", component: DialogShowOutfit},
+      {path: "settings", component: DialogProfileSettings}
     ]
   },
-  {path: "**", redirectTo: "home/tape"} //not found
+  {path: "not-found", component: UnknownPage},
+  {path: "**", redirectTo: "not-found"}
 ];

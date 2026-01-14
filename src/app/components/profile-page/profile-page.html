@@ -8,10 +8,10 @@
         <h3>{{getProfileInfo(profileId()).username}}</h3>
         @if (myProfile) {
           <div class="control-btns">
-            <button type="button" class="btn-control" tuiHint="Редактировать профиль">
+            <button type="button" class="btn-control" tuiHint="Редактировать профиль" (click)="openDialogEditUser()">
                 <mat-icon>edit</mat-icon>
             </button>
-            <button type="button" class="btn-control" tuiHint="Настройки аккаунта">
+            <button type="button" class="btn-control" tuiHint="Настройки аккаунта" (click)="openDialogSettings()">
               <mat-icon>settings</mat-icon>
             </button>
             <button type="button" class="btn-control" tuiHint="Выйти из аккаунта">

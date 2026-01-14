@@ -1,0 +1,37 @@
+.dd-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dd-bts {
+  display: flex;
+  flex-direction: row;
+  height: 38.6px;
+  gap: 10px;
+}
+
+.dropdown-sel {
+  display: flex;
+  flex-direction: row;
+  padding-left: 14px;
+  padding-right: 14px;
+  justify-content: space-between;
+  align-items: center;
+  width: 216px;
+  height: 38.6px;
+  border-radius: 16px;
+  border: none;
+  background-color: var(--cards-color);
+  cursor: pointer;
+}
+
+.dd-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+  opacity: 1;
+  transition: opacity 0.25s, display 0.25s;
+  transition-behavior: allow-discrete;
+}

@@ -1,0 +1,44 @@
+<div class="dialog-window">
+  <div class="dialog-title">
+    <h3>Выберите вещь для добавления в образ</h3>
+    <button class="btn-m-dialog" (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <main>
+    <div class="filters-container">
+    </div>
+    <div class="grid-cards">
+      @for (clothing of clothings; track clothing) {
+        <div class="card-image">
+          <div class="photo-card-item">
+            <img class="photo-card" [src]="clothing.image">
+            <button type="button" class="btn-control absolute-pos" tuiHint="Удалить">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div class="card-details">
+            <div class="info-about-item">
+              <div class="info-item">
+                <span class="normal over-hide" tuiHint="Бренд">{{clothing.brand}}</span>
+                <span class="normal sec-text">·</span>
+                <span class="normal sec-text over-hide" tuiHint="Название">{{clothing.name}}</span>
+              </div>
+              <div class="info-item sec-text">
+                <div class="line-data" tuiHint="Когда последний раз надевали">
+                  <mat-icon><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M580-240q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z"/></svg></mat-icon>
+                  <span class="normal">{{clothing.dateLastWear}}</span>
+                </div>
+                <span class="normal">·</span>
+                <div class="line-data" tuiHint="Сколько раз надевали">
+                  <mat-icon>event_repeat</mat-icon>
+                  <span class="normal" >{{clothing.countsWear}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </main>
+</div>

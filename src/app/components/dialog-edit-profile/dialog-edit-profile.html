@@ -1,0 +1,68 @@
+<h1 mat-dialog-title style="font-size: 18px;">Редактирование профиля</h1>
+<div mat-dialog-content style="display: inline; padding: 20px; margin: auto; ">
+  <div>
+    <label class="normal">Имя пользователя</label>
+    <mat-form-field class="full-width-input">
+      <input class="main-text-input" matInput type="text" placeholder="Имя пользователя" [value]="editingUser.username"
+        [(ngModel)]="editingUser.username" required >
+        @if (validateFormUsername(editingUser.username) == false) {
+          <mat-error>Поле не может быть пустым</mat-error>
+        }
+    </mat-form-field>
+  </div>
+
+  <div>
+    <label class="normal">Пол</label>
+    <mat-radio-group [(ngModel)]="editingUser.gender" [value]="editingUser.gender">
+      @for (gender of GENDERS; track $index) {
+        <mat-radio-button [value]="gender">{{gender}}</mat-radio-button>
+      }
+    </mat-radio-group>
+  </div>
+
+  <div>
+    <label class="normal">Рост (см)</label>
+    <mat-form-field class="full-width-input">
+      <input matInput type="number" min="0" max="250" placeholder="Рост" [value]="editingUser.height"
+        [(ngModel)]="editingUser.height" required>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <label class="normal">Вес (кг)</label>
+    <mat-form-field class="full-width-input">
+      <input matInput type="number" min="0" max="250" placeholder="Вес" [value]="editingUser.weight"
+        [(ngModel)]="editingUser.weight" required>
+    </mat-form-field>
+  <div>
+
+  <div>
+    <label class="normal">Размер одежды</label>
+    <mat-form-field class="full-width-input">
+      <input matInput type="number" placeholder="Размер одежды" [value]="editingUser.clothingSize"
+        [(ngModel)]="editingUser.clothingSize" required>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <label class="normal">Размер обуви</label>
+    <mat-form-field class="full-width-input">
+      <input matInput type="number" min="20" max="50" placeholder="Размер обуви" [value]="editingUser.shoeSize"
+        [(ngModel)]="editingUser.shoeSize" required>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <label class="normal">Прочая информация (150 символов)</label>
+    <mat-form-field class="full-width-input">
+      <input matInput type="text" maxlength="150" placeholder="Прочая информация" [value]="editingUser.otherInfo"
+        [(ngModel)]="editingUser.otherInfo" required>
+    </mat-form-field>
+  </div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Отмена</button>
+  <button class="right-align" mat-raised-button color="primary"
+    [mat-dialog-close]="editingUser" [disabled]="checkValidateConfirm()">Сохранить</button>
+</div>

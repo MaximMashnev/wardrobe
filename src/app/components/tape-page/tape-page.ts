@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
-import { TuiLike, TuiAvatar } from '@taiga-ui/kit';
+import { Component, inject } from '@angular/core';
+import { TuiLike, TuiAvatar, TuiFilter } from '@taiga-ui/kit';
 import {FormsModule} from '@angular/forms';
 import {TuiTextfield} from '@taiga-ui/core';
 import {
@@ -9,8 +9,21 @@ import {
   TuiDataListWrapper,
   TuiFilterByInputPipe,
 } from '@taiga-ui/kit';
-import {map, type Observable} from 'rxjs';
+import {BehaviorSubject, map, type Observable} from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogShowOutfit } from '../dialog-show-outfit/dialog-show-outfit';
+
+const TAGS = {
+    EveryDay: 'На каждый день',
+    Office: 'В офис',
+    Party: 'На вечеринку',
+    Workout: 'На тренировку',
+    Meeting: 'На свидание',
+    Vacation: 'В отпуск',
+    Theater: 'В театр',
+    House: 'Для дома',
+} as const;
 
 @Component({
   standalone: true,
@@ -25,6 +38,7 @@ import { AsyncPipe } from '@angular/common';
     TuiDataListWrapper,
     TuiFilterByInputPipe,
     TuiTextfield,
+    TuiFilter,
   ],
   templateUrl: './tape-page.html',
   styleUrl: './tape-page.css',
@@ -35,39 +49,92 @@ export class TapePage {
     );
 
     protected value: string | null = null;
-    protected value1: string | null = null;
-    protected value2: string | null = null;
-    protected value3: string | null = null;
+
+	  protected readonly items = Object.values(TAGS);
+    protected readonly filters$ = new BehaviorSubject<readonly string[]>([]);
+
+    protected readonly checked$ = this.filters$.pipe(
+        map(({length}) => (length === this.items.length ? 'checked' : '')),
+    );
+
+    protected readonly model$ = this.filters$.pipe(
+        map((value) => (value.length === this.items.length ? [] : value)),
+    );
+
+    protected onModelChange(model: readonly string[]): void {
+        this.filters$.next(model);
+    }
+
+    protected toggleAll(): void {
+        this.filters$.next(
+            this.items.length === this.filters$.value.length ? [] : [...this.items],
+        );
+    }
+
+    constructor (
+      public dialog: MatDialog,
+    ) {
+
+    }
 
     cards = [
       {
         id: 1,
         username: 'UserName_1',
-        imageProfile: 'U1',
-        imageStyle: 'imageStyle_1',
-        imageImage: 'https://i.pinimg.com/736x/72/da/b9/72dab97065702d2e21a6933b5d937002.jpg',
-        likesCounter: 1,
+        imgProfile: 'U1',
+        style: 'style_1',
+        tag: 'tag_1',
+        mainImg: 'https://i.pinimg.com/736x/72/da/b9/72dab97065702d2e21a6933b5d937002.jpg',
+        secImg1: '',
+        secImg2: '',
+        likesCounter: 999,
         beenLiked: true
       },
       {
         id: 2,
         username: 'UserName_2',
-        imageProfile: 'U2',
-        imageStyle: 'imageStyle_2',
-        imageImage: 'https://i.pinimg.com/1200x/f9/1b/38/f91b38b62b069ff7d769ab4311627d7b.jpg',
-        likesCounter: 2,
+        imgProfile: 'U2',
+        style: 'style_2',
+        tag: 'tag_2',
+        mainImg: 'https://i.pinimg.com/1200x/f9/1b/38/f91b38b62b069ff7d769ab4311627d7b.jpg',
+        secImg1: '',
+        secImg2: '',
+        likesCounter: 123456,
         beenLiked: false
       },
       {
         id: 3,
         username: 'UserName_3',
-        imageProfile: 'U3',
-        imageStyle: 'imageStyle_3',
-        imageImage: 'https://i.pinimg.com/736x/fd/6d/0a/fd6d0a93824fa83f0f73ee35b0acaecf.jpg',
-        likesCounter: 3,
+        imgProfile: 'U3',
+        style: 'style_3',
+        tag: 'tag_3',
+        secImg1: '',
+        secImg2: '',
+        mainImg: 'https://i.pinimg.com/736x/fd/6d/0a/fd6d0a93824fa83f0f73ee35b0acaecf.jpg',
+        likesCounter: 123456789,
         beenLiked: true
       }
     ]
 
     isAuthorized: boolean = true;
+
+    openDialogShowOutfit(id: number) {
+      this.dialog.open(DialogShowOutfit, {
+        data: id,
+        maxWidth: '1080px',
+      });
+    }
+
+    definitionLikes(numLikes: number) {
+      let length = (numLikes.toString().length);
+      let str = (numLikes / (length > 6 ? 1e6 : 1e3) ).toString();
+
+      if (length < 4) return numLikes;
+      if (str[3] == '.') {
+        return str.slice(0, 3) + (length > 6 ? "m": "k");
+      }
+      else {
+        return str.slice(0, 4) + (length > 6 ? "m": "k");
+      }
+    }
 }

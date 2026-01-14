@@ -1,7 +1,7 @@
 <main>
   <div class="grid-cards">
     <div class="user-outfits-likes-card">
-        <a [href]="test.id">
+        <a (click)="openDialogShowOutfit(test.id)">
           <img class="photo-card" [src]="test.image">
           <div class="hover-text"><span class="b-normal w">Смотреть образ</span></div>
 

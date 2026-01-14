@@ -1,0 +1,88 @@
+.calendar-page {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.l-col {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.r-col {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.ai-window {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  background-color: var(--cards-color);
+  max-width: calc(480px - 25px*2);
+  min-width: calc(400px - 25px*2);
+  height: min-content;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 25px;
+  padding-right: 25px;
+  gap: 15px;
+}
+
+.section-c {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  max-width: calc(480px - 30px*2);
+  min-width: calc(400px - 30px*2);
+  background-color: var(--cards-color);
+  border-radius: 16px;
+}
+
+.day-card-image {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--main-bg-color);
+  border-radius: 16px;
+  padding: 13px;
+  gap: 23px;
+}
+
+.image-block {
+  height: 122px;
+  width: 122px;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.outfit-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.weather-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 122px;
+  width: 122px;
+  border-radius: 16px;
+  background-color: var(--cards-color);
+}
+
+.tui-calendar {
+  display: flex;
+  justify-content: center;
+}
