@@ -34,8 +34,9 @@ export class MyStuffPage implements OnInit{
       data: null
     });
     dialogAddStuff.afterClosed().subscribe((result: Stuff) => {
-      if (result != null) {
+      if (result != null && result != undefined) {
         console.log(result);
+        this.getMyStuffs();
       };
     });
   }
@@ -47,8 +48,9 @@ export class MyStuffPage implements OnInit{
       data: stuff
     });
     dialogEditStuff.afterClosed().subscribe((result: Stuff) => {
-      if (result != null) {
+      if (result != null && result != undefined) {
         console.log(result);
+        this.getMyStuffs();
       };
     });
   }

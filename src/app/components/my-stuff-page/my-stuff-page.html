@@ -13,9 +13,9 @@
         <div class="card-details">
           <div class="info-about-item">
             <div class="info-item">
-              <span class="normal over-hide" tuiHint="Бренд">{{clothing.brand}}</span>
+              <span class="normal over-hide" [tuiHint]="(clothing.brand.length > 10) ? `Бренд: ${clothing.brand}` : 'Бренд'">{{clothing.brand}}</span>
               <span class="normal sec-text">·</span>
-              <span class="normal sec-text over-hide" tuiHint="Название">{{clothing.name}}</span>
+              <span class="normal sec-text over-hide" [tuiHint]="(clothing.name.length > 10) ? `Название: ${clothing.name}` : 'Название'">{{clothing.name}}</span>
             </div>
             <div class="info-item sec-text">
               <div class="line-data" tuiHint="Когда последний раз надевали">

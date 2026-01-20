@@ -38,16 +38,18 @@
         </div>
         <div class="form-data">
           <span class="normal">Категория</span>
+          <!-- TODO: добавить возможность поиска с вводом категории -->
           <select name="categories" [(ngModel)]="editingStuff.category">
-            @for (item of dataStuffs[0].listCategories; track item.id) {
+            @for (item of dataStuffs.listCategories; track item.id) {
               <option [value]="item.name">{{item.name}}</option>
             }
           </select>
         </div>
         <div class="form-data">
           <span class="normal">Бренд</span>
+          <!-- TODO: добавить возможность поиска с вводом названия бренда -->
           <select name="brands" [(ngModel)]="editingStuff.brand">
-            @for (item of dataStuffs[0].listBrands; track item.id) {
+            @for (item of dataStuffs.listBrands; track item.id) {
               <option [value]="item.name">{{item.name}}</option>
             }
           </select>
@@ -55,7 +57,7 @@
         <div class="form-data">
           <span class="normal">Размер вещи</span>
           <select name="sizes" [(ngModel)]="editingStuff.size">
-            @for (item of dataStuffs[0].listSizes; track item.id) {
+            @for (item of dataStuffs.listSizes; track item.id) {
               <option [value]="item.name">{{item.name}}</option>
             }
           </select>

@@ -1,5 +1,5 @@
 import { Stuff } from "./../../models/stuff";
-import { Component, Inject } from "@angular/core";
+import { ChangeDetectorRef, Component, Inject, OnInit } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import {FormsModule} from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from "@angular/material/dialog";
@@ -16,16 +16,20 @@ import { StuffService } from "../../service/stuff-service";
   templateUrl: "./dialog-add-edit-stuff.html",
   styleUrl: "./dialog-add-edit-stuff.css",
 })
-export class DialogAddEditStuff {
+export class DialogAddEditStuff implements OnInit {
   editingStuff!: Stuff;
-  dataStuffs!: any;
+  dataStuffs: any = "Загрузка...";
 
   constructor (
     public dialogRef: MatDialogRef<DialogAddEditOutfit>,
     @Inject(MAT_DIALOG_DATA) public data: Stuff | null,
     private StuffService: StuffService,
+    public cdr: ChangeDetectorRef,
   ) {
     this.editingStuff = data ? data : new Stuff();
+  }
+
+  ngOnInit(): void {
     this.getDataForStuff();
   }
 
@@ -36,8 +40,8 @@ export class DialogAddEditStuff {
   getDataForStuff() {
     this.StuffService.getData().subscribe({
       next: (data) => {
-        this.dataStuffs = data;
-        console.log(this.dataStuffs[0].listBrands[0]);
+        this.dataStuffs = data[0];
+        this.cdr.detectChanges();
       }
     })
   }
