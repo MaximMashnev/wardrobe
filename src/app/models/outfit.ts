@@ -1,4 +1,4 @@
-export class OutfitCard {
+export class Outfit {
   constructor () {
     this.id = null;
     this.userId = null;
@@ -6,11 +6,7 @@ export class OutfitCard {
     this.imgProfile = (this.username.includes(" ")) ? this.username.split(' ')[0]+this.username.split(' ')[1] : this.username.slice(0, 2);
     this.style = "";
     this.tag = "";
-    this.imgs = {
-      mainImg: "",
-      secImg1: "",
-      secImg2: "",
-    };
+    this.imgs = [];
     this.stuffIds = [];
     this.likesCounter = 0;
     this.beenLiked = false;
@@ -23,11 +19,7 @@ export class OutfitCard {
   imgProfile: string;
   style: string;
   tag: string;
-  imgs: {
-    mainImg: string;
-    secImg1: string;
-    secImg2: string;
-  }
+  imgs: Array<string>;
   stuffIds: Array<number>;
   likesCounter: number;
   beenLiked: boolean;

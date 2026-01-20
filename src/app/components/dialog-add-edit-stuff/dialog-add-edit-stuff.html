@@ -1,99 +1,78 @@
 <div class="dialog-window">
   <div class="dialog-title">
-    <h3>Добавление/редактировние вещи</h3>
-    <button class="btn-m-dialog" (click)="closeDialog()">
+    <h3>
+      @if (data) {
+        Редактирование вещи
+      }
+      @else {
+        Добавление вещи
+      }
+    </h3>
+    <button class="btn-m-dialog" mat-dialog-close>
       <mat-icon>close</mat-icon>
     </button>
   </div>
-  <div class="dialog-main-content">
-    <div class="load-photo-block">
-      <div class="loading-photo">
-        <span class="m-normal">Загрузите изображение вещи</span>
-        <button class="btn-m-dialog">
-          <mat-icon>add</mat-icon>
-        </button>
-        <input type="text" class="main-text-input" placeholder="Ссылка на изображение">
+  <mat-dialog-content>
+    <div class="dialog-main-content">
+      <div class="load-photo-block">
+        <div class="loading-photo">
+          <span class="m-normal">Загрузите изображение вещи</span>
+          <button class="btn-m-dialog">
+            <mat-icon>add</mat-icon>
+          </button>
+          <input type="text" class="main-text-input" [value]="editingStuff.img" [(ngModel)]="editingStuff.img" placeholder="Ссылка на изображение">
+        </div>
+      </div>
+      <div class="obj-info-about">
+        <div class="form-data">
+          <span class="normal">Ссылка на вещь</span>
+          <input class="main-text-input" type="url" [value]="editingStuff.link" [(ngModel)]="editingStuff.link" placeholder="Введите ссылку">
+        </div>
+        <div class="form-data">
+          <span class="normal">Стоимость вещи</span>
+          <input class="main-text-input" type="number" [value]="editingStuff.cost" [(ngModel)]="editingStuff.cost" placeholder="Стоимость вещи">
+        </div>
+        <div class="form-data">
+          <span class="normal">Название вещи</span>
+          <input class="main-text-input" type="text" [value]="editingStuff.name" [(ngModel)]="editingStuff.name" placeholder="Название вещи">
+        </div>
+        <div class="form-data">
+          <span class="normal">Категория</span>
+          <select name="categories" [(ngModel)]="editingStuff.category">
+            @for (item of dataStuffs[0].listCategories; track item.id) {
+              <option [value]="item.name">{{item.name}}</option>
+            }
+          </select>
+        </div>
+        <div class="form-data">
+          <span class="normal">Бренд</span>
+          <select name="brands" [(ngModel)]="editingStuff.brand">
+            @for (item of dataStuffs[0].listBrands; track item.id) {
+              <option [value]="item.name">{{item.name}}</option>
+            }
+          </select>
+        </div>
+        <div class="form-data">
+          <span class="normal">Размер вещи</span>
+          <select name="sizes" [(ngModel)]="editingStuff.size">
+            @for (item of dataStuffs[0].listSizes; track item.id) {
+              <option [value]="item.name">{{item.name}}</option>
+            }
+          </select>
+        </div>
       </div>
     </div>
-    <div class="obj-info-about">
-      <div class="form-data">
-        <span class="normal">Ссылка на вещь</span>
-        <input class="main-text-input" type="url" placeholder="Введите ссылку">
-      </div>
-      <div class="form-data">
-        <span class="normal">Стоимость вещи</span>
-        <input class="main-text-input" type="number" placeholder="Стоимость вещи">
-      </div>
-      <div class="form-data">
-        <span class="normal">Название вещи</span>
-        <input class="main-text-input" type="text" placeholder="Название вещи">
-      </div>
-      <div class="form-data">
-        <span class="normal">Категория</span>
-        <tui-textfield
-          tuiChevron
-          [stringify]="strCategory"
-          tuiTextfieldSize="m"
-          >
-          <input
-              class="btn-font"
-              tuiSelect
-              placeholder="Категория"
-              [(ngModel)]="category"
-          />
-
-          <tui-data-list-wrapper
-              *tuiTextfieldDropdown
-              new
-              [items]="listCategories"
-          />
-        </tui-textfield>
-      </div>
-      <div class="form-data">
-        <span class="normal">Введите название бренда</span>
-        <tui-textfield
-          tuiChevron
-          [stringify]="strBrand"
-          tuiTextfieldSize="m"
-          >
-          <input
-              class="btn-font"
-              tuiSelect
-              placeholder="Бренд"
-              [(ngModel)]="brand"
-          />
-
-          <tui-data-list-wrapper
-              *tuiTextfieldDropdown
-              new
-              [items]="listBrands"
-          />
-        </tui-textfield>
-      </div>
-      <div class="form-data">
-        <span class="normal">Размер вещи</span>
-        <tui-textfield
-          tuiChevron
-          [stringify]="strSize"
-          tuiTextfieldSize="m"
-          >
-          <input
-              class="btn-font"
-              tuiSelect
-              placeholder="Размер"
-              [(ngModel)]="size"
-          />
-
-          <tui-data-list-wrapper
-              *tuiTextfieldDropdown
-              new
-              [items]="listSize"
-          />
-        </tui-textfield>
-      </div>
-      <button class="btn-6" type="submit">
-        Добавить\Сохранить
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    @if (data) {
+      <button class="nav-btn" type="submit" [mat-dialog-close]="editingStuff" (click)="editStuff(editingStuff)">
+        Сохранить
       </button>
-    </div>
-  </div>
+    }
+    @else {
+      <button class="nav-btn" type="submit" [mat-dialog-close]="editingStuff" (click)="addStuff(editingStuff)">
+        Добавить
+      </button>
+    }
+  </mat-dialog-actions>
 </div>

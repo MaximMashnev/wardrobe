@@ -1,33 +1,22 @@
 export class User {
-  constructor() {
-    this.id = null;
-    this.role = "user";
-    this.email = "";
-    this.username = "";
-    this.gender = "";
-    this.height = 0;
-    this.weight = 0;
-    this.shoeSize = "";
-    this.clothingSize = "";
-    this.otherInfo = "";
-    this.subscriptions = 0;
-    this.likes = 0;
-    this.subscribers = 0;
-    this.likesHidden = false;
+  constructor(
+    public email: string = "",
+    public username: string  = "",
+    public password: string  = "",
+    public id: number | null = null,
+    public imgProfile: string = "https://static.vecteezy.com/system/resources/previews/036/280/654/non_2x/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg",
+    public role: "admin" | "user" = "user",
+    public gender: string  = "",
+    public height: number = 0,
+    public weight: number = 0,
+    public shoeSize: string  = "",
+    public clothingSize: string  = "",
+    public otherInfo: string  = "",
+    public subscriptions: number = 0,
+    public likes: number = 0,
+    public subscribers: number = 0,
+    public likesHidden: boolean = false,
+  ) {
+    // this.imgProfile = username.includes(" ") ? username.split(' ')[0] + username.split(' ')[1] : username.slice(0, 2);
   }
-
-  id: number | null;
-  role: "admin" | "user";
-  email: string;
-  username: string;
-  gender: string;
-  height: number;
-  weight: number;
-  shoeSize: string;
-  clothingSize: string;
-  otherInfo: string;
-  subscriptions: number;
-  likes: number;
-  subscribers: number;
-  likesHidden: boolean;
 }

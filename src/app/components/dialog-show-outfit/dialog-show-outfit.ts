@@ -2,15 +2,8 @@ import { ChangeDetectionStrategy, Component, Inject, input } from '@angular/core
 import { TuiAvatar, TuiLike } from "@taiga-ui/kit";
 import { MatIconModule } from "@angular/material/icon";
 import {FormsModule} from '@angular/forms';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogRef, MatDialogTitle, MatDialogModule } from '@angular/material/dialog';
+import { Outfit } from '../../models/outfit';
 
 @Component({
   standalone: true,
@@ -20,6 +13,7 @@ import {
     MatIconModule,
     TuiLike,
     FormsModule,
+    MatDialogModule
 ],
   templateUrl: './dialog-show-outfit.html',
   styleUrl: './dialog-show-outfit.css',
@@ -32,7 +26,7 @@ export class DialogShowOutfit {
 
   constructor (
     public dialogRef: MatDialogRef<DialogShowOutfit>,
-    @Inject(MAT_DIALOG_DATA) public data: number | undefined,
+    @Inject(MAT_DIALOG_DATA) public data: Outfit,
   ) {
     console.log(data);
     this.isDialogMode = !!this.dialogRef;

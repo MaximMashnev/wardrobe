@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterOutlet, RouterLinkActive, RouterLinkWithHref } from '@angular/router';
+import { RouterOutlet, RouterLinkActive, RouterLinkWithHref, Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -18,6 +18,20 @@ import { RouterOutlet, RouterLinkActive, RouterLinkWithHref } from '@angular/rou
 })
 export class MainPage {
   isAuthorized: boolean = true;
-  myProfileId = 0;
-  myUrl = 'profile/' + this.myProfileId
+  myUrl = 'profile/' + localStorage.getItem('userId');
+
+  constructor (
+    private router: Router,
+  ) {
+    this.checkAuth();
+  }
+
+  checkAuth() {
+    if (!localStorage.getItem("Bearer")) {
+      this.isAuthorized = false;
+    }
+    else {
+      this.isAuthorized = true;
+    }
+  }
 }

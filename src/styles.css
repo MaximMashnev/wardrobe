@@ -362,6 +362,7 @@ main {
   display: flex;
   justify-content: center;
   width: 100%;
+  padding-bottom: 20px;
 }
 
 .user-outfits-likes-card {
@@ -468,7 +469,7 @@ main {
   flex-direction: column;
   background-color: var(--main-bg-color);
   border: 1px solid var(--cards-color);
-  max-width: 1040px;
+  /* width: 1040px; */
   border-radius: 16px;
   padding: 15px;
   gap: 15px;
@@ -600,7 +601,29 @@ tui-textfield {
   z-index: 10;
 }
 
-@media screen and (max-width: 1000px ){
+.filters-container {
+  display: block;
+}
+
+select {
+  background-color: var(--cards-color);
+  border-radius: 16px;
+  height: 38.6px;
+  border: 1px solid var(--cards-color);
+  width: 263.2px;
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+[tuiBlock][data-size=s] {
+  --t-height: 38.59px !important;
+}
+
+[tuiBlock][data-appearance=""] {
+  align-items: center;
+}
+
+@media screen and (max-width: 1000px){
   .log-reg-container {
     width: auto;
     height: auto;

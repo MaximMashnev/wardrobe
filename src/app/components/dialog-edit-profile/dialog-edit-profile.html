@@ -3,7 +3,8 @@
   <div>
     <label class="normal">Имя пользователя</label>
     <mat-form-field class="full-width-input">
-      <input class="main-text-input" matInput type="text" placeholder="Имя пользователя" [value]="editingUser.username"
+      <mat-label>Имя пользователя</mat-label>
+      <input class="main-text-input" matInput type="text" placeholder="example" [value]="editingUser.username"
         [(ngModel)]="editingUser.username" required >
         @if (validateFormUsername(editingUser.username) == false) {
           <mat-error>Поле не может быть пустым</mat-error>

@@ -29,8 +29,8 @@
   <div class="grid-cards">
     @for (card of cards; track card.id) {
       <div class="tape-card-n">
-        <a class="card-main-img" (click)="openDialogShowOutfit(card.id)">
-          <img class="photo-card" [src]="card.mainImg">
+        <a class="card-main-img" (click)="openDialogShowOutfit(card)">
+          <img class="photo-card" [src]="card.imgs[0]">
           <div class="hover-text"><span class="b-normal w">Смотреть образ</span></div>
         </a>
         <div class="card-info-block">

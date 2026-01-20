@@ -1,11 +1,14 @@
 <main>
   <div class="filters-container">
+    <button type="button" class="btn-control" tuiHint="Добавить вещь" (click)="openDialogAddStuff()">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
   <div class="grid-cards">
-    @for (clothing of clothings; track clothing) {
+    @for (clothing of clothings; track clothing.id) {
       <div class="card-image">
         <div class="photo-card-item">
-          <img class="photo-card" [src]="clothing.image">
+          <img class="photo-card" [src]="clothing.img">
         </div>
         <div class="card-details">
           <div class="info-about-item">
@@ -28,8 +31,7 @@
           </div>
           <div class="control-block">
             <div class="cost-item">
-              <span>{{clothing.cost}}</span>
-              <span>{{clothing.currency}}</span>
+              <span>{{clothing.cost}}₽</span>
             </div>
             <div class="control-btns">
               <button type="button" class="btn-control" tuiHint="Ссылка на товар">
@@ -37,10 +39,10 @@
                   <mat-icon style="rotate: -45deg; margin-top: 4px;">link</mat-icon>
                 </a>
               </button>
-              <button type="button" class="btn-control" tuiHint="Редактировать">
+              <button type="button" class="btn-control" tuiHint="Редактировать" (click)="openDialogEditStuff(clothing)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button type="button" class="btn-control" tuiHint="Удалить">
+              <button type="button" class="btn-control" tuiHint="Удалить" (click)="deleteMyStuff(clothing.id)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>

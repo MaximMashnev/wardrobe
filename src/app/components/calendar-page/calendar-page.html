@@ -8,24 +8,21 @@
       <h3>Календарь</h3>
       <div class="tui-calendar">
         <tui-calendar
-            [value]="selectDate"
             (dayClick)="onDayClick($event)"
         />
       </div>
-      @if (selectDate) {
-        @for (dayOutfit of dayOutfits; track $index) {
-          @if (selectDate) {
-            <div class="day-card-image">
-              <img class="image-block" [src]="dayOutfit.date">
-              <div class="info-block">
-                <h3 tuiHint="Дата">{{dayOutfit.date}}</h3>
-                <div class="outfit-info">
-                  <span class="normal" tuiHint="Название">{{dayOutfit.name}}</span>
-                  <span class="normal" tuiHint="Стоимость">{{dayOutfit.cost}}</span>
-                </div>
+      @for (dayOutfit of dayOutfits; track $index) {
+        @if (selDate == dayOutfit.date) {
+          <div class="day-card-image">
+            <img class="image-block" [src]="dayOutfit.image">
+            <div class="info-block">
+              <h3 tuiHint="Дата">{{dayOutfit.date}}</h3>
+              <div class="outfit-info">
+                <span class="normal" tuiHint="Название">{{dayOutfit.name}}</span>
+                <span class="normal" tuiHint="Стоимость">{{dayOutfit.cost}}</span>
               </div>
             </div>
-          }
+          </div>
         }
       }
     </div>

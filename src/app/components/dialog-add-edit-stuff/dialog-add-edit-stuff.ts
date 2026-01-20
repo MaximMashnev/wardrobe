@@ -1,75 +1,68 @@
-import { Component } from '@angular/core';
+import { Stuff } from "./../../models/stuff";
+import { Component, Inject } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
-import {FormsModule} from '@angular/forms';
-import {tuiItemsHandlersProvider, TuiTextfield} from '@taiga-ui/core';
-import {TuiChevron, TuiDataListWrapper, TuiSelect} from '@taiga-ui/kit';
-import {type TuiStringHandler} from '@taiga-ui/cdk';
-
-interface Category {
-  id: number;
-  name: string;
-}
-
-interface Brand {
-  id: number;
-  name: string;
-}
-
-interface Size {
-  id: number;
-  name: string;
-}
+import {FormsModule} from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from "@angular/material/dialog";
+import { DialogAddEditOutfit } from "../dialog-add-edit-outfit/dialog-add-edit-outfit";
+import { StuffService } from "../../service/stuff-service";
 
 @Component({
-  selector: 'app-dialog-add-edit-stuff',
+  selector: "app-dialog-add-edit-stuff",
   imports: [
     MatIconModule,
     FormsModule,
-    TuiChevron,
-    TuiDataListWrapper,
-    TuiSelect,
-    TuiTextfield,
+    MatDialogModule
 ],
-  templateUrl: './dialog-add-edit-stuff.html',
-  styleUrl: './dialog-add-edit-stuff.css',
+  templateUrl: "./dialog-add-edit-stuff.html",
+  styleUrl: "./dialog-add-edit-stuff.css",
 })
 export class DialogAddEditStuff {
-  protected listCategories: Category[] = [
-    {id: 1, name: '1'},
-    {id: 2, name: '2'},
-  ]
-  protected category: Category | null = null;
-  protected strCategory: TuiStringHandler<Category> = (x) => x.name;
-
-  protected listBrands: Brand[] = [
-    {id: 1, name: 'Brunello Cucinelli'},
-    {id: 2, name: 'Stefano Ricci'},
-    {id: 3, name: 'Kiton'},
-    {id: 4, name: 'Zilli'},
-    {id: 5, name: 'Dolce&Gabbana'},
-  ]
-  protected brand: Brand | null = null;
-  protected strBrand: TuiStringHandler<Brand> = (x) => x.name;
-
-  protected listSize: Size[] = [
-    {id: 1, name: 's'},
-    {id: 2, name: 'm'},
-    {id: 3, name: 'l'},
-    {id: 4, name: 'xl'},
-    {id: 5, name: 'xxl'},
-  ]
-  protected size: Category | null = null;
-  protected strSize: TuiStringHandler<Size> = (x) => x.name;
+  editingStuff!: Stuff;
+  dataStuffs!: any;
 
   constructor (
-    // public dialogRef: MatDialogRef<DialogAddEditOutfit>,
-    // @Inject(MAT_DIALOG_DATA) public data: number | undefined,
+    public dialogRef: MatDialogRef<DialogAddEditOutfit>,
+    @Inject(MAT_DIALOG_DATA) public data: Stuff | null,
+    private StuffService: StuffService,
   ) {
-    // console.log(data);
+    this.editingStuff = data ? data : new Stuff();
+    this.getDataForStuff();
   }
 
   closeDialog() {
-    // this.dialogRef.close();
+    this.dialogRef.close();
   }
 
+  getDataForStuff() {
+    this.StuffService.getData().subscribe({
+      next: (data) => {
+        this.dataStuffs = data;
+        console.log(this.dataStuffs[0].listBrands[0]);
+      }
+    })
+  }
+
+  editStuff(data: Stuff) {
+    this.StuffService.editStuff(data).subscribe({
+      next: (result) => {
+        console.log("edit stuff success");
+      }
+    })
+  }
+
+  deleteStuff(id: number) {
+    this.StuffService.deleteStuff(id).subscribe({
+      next: (result) => {
+        console.log("delete stuff success");
+      }
+    })
+  }
+
+  addStuff(data: Stuff) {
+    this.StuffService.addStuff(data).subscribe({
+      next: (result) => {
+        console.log("add stuff success");
+      }
+    })
+  }
 }

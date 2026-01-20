@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogShowOutfit } from '../dialog-show-outfit/dialog-show-outfit';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-outfits',
@@ -13,7 +14,6 @@ export class UserOutfits {
   constructor (
     public dialog: MatDialog,
   ) {
-
   }
 
   test = {

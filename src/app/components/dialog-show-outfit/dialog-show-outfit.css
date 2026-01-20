@@ -37,8 +37,17 @@
 }
 
 .stuffs {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: min-content min-content;
   gap: 10px;
+}
+
+@media screen and (max-width: 1000px){
+  .stuffs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }

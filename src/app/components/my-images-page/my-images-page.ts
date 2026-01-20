@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from "@angular/material/icon";
 import {TuiHint} from '@taiga-ui/core';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-my-images-page',
-  imports: [MatIconModule, TuiHint],
+  imports: [MatIconModule, TuiHint, RouterLink],
   templateUrl: './my-images-page.html',
   styleUrl: './my-images-page.css',
 })

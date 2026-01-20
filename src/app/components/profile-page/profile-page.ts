@@ -1,11 +1,12 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectorRef, Component, input, OnInit } from '@angular/core';
 import { MatIconModule } from "@angular/material/icon";
 import {TuiHint} from '@taiga-ui/core';
-import { RouterOutlet, RouterLinkActive, RouterLinkWithHref } from '@angular/router';
+import { RouterOutlet, RouterLinkActive, RouterLinkWithHref, ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEditProfile } from '../dialog-edit-profile/dialog-edit-profile';
 import { User } from '../../models/user';
 import { DialogProfileSettings } from '../dialog-profile-settings/dialog-profile-settings';
+import { UserService } from './../../service/user-service';
 
 @Component({
   selector: 'app-profile-page',
@@ -19,51 +20,62 @@ import { DialogProfileSettings } from '../dialog-profile-settings/dialog-profile
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })
-export class ProfilePage {
+export class ProfilePage implements OnInit {
   myProfile: boolean = false;
-  profileId = input.required<string>();
-  userData!: any;
+  userData!: User;
+  paramId!: number;
 
   constructor (
     public dialog: MatDialog,
-  ) {
+    private routes: ActivatedRoute,
+    private UserService: UserService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
 
+  ngOnInit(): void {
+    this.getParamsUrl();
+    if (this.paramId == +localStorage.getItem('userId')!) {
+      this.myProfile = true;
+      this.getMyProfileInfo();
+    }
+    else {
+      this.getProfileInfo();
+      if (this.userData == undefined) {
+        this.router.navigate(['/not-found']);
+      }
+    }
   }
 
-  getProfileInfo(Id: any) {
-    const profilesInfo = [
-      {
-        id: 1,
-        username: 'UserName_1',
-        imageProfile: 'https://i.pinimg.com/736x/5f/04/09/5f0409e4db4e898c99b925ca951ae201.jpg',
-        gender: 'Женский',
-        height: 10,
-        weight: 10,
-        shoeSize: '42',
-        clothingSize: 'M',
-        otherInfo: 'Привет, Мир!',
-        subscriptions: 10,
-        likes: 10,
-        subscribers: 20
-      },
-      {
-        id: 2,
-        username: 'UserName_2',
-        imageProfile: 'https://i.pinimg.com/736x/5f/04/09/5f0409e4db4e898c99b925ca951ae201.jpg',
-        gender: 'Мужской',
-        height: 20,
-        weight: 20,
-        shoeSize: '52',
-        clothingSize: 'M',
-        otherInfo: 'Привет, Мир2!',
-        subscriptions: 20,
-        likes: 20,
-        subscribers: 20
-      },
-    ]
+  getParamsUrl() {
+    this.routes.params.subscribe({
+      next: (data) => {
+        this.paramId = +data["profileId"];
+      }
+    });
+  }
 
-    if (Id == 0) this.myProfile = true;
-    return profilesInfo[Id];
+  getProfileInfo() {
+    this.UserService.getUserInfo(this.paramId).subscribe({
+      next: (data) => {
+        this.userData = data;
+        console.log(this.userData);
+        this.cdr.detectChanges();
+      },
+      error: (Error) => {
+        console.log(Error);
+      }
+    })
+  }
+
+  getMyProfileInfo() {
+    this.UserService.getMe().subscribe({
+      next: (data) => {
+        this.userData = data;
+        console.log(this.userData);
+        this.cdr.detectChanges();
+      }
+    })
   }
 
   openDialogSettings() {
@@ -89,4 +101,9 @@ export class ProfilePage {
       };
     });
   }
+
+  logoutUser() {
+    localStorage.clear();
+  }
+
 }

@@ -13,6 +13,7 @@ import {BehaviorSubject, map, type Observable} from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogShowOutfit } from '../dialog-show-outfit/dialog-show-outfit';
+import { Outfit } from '../../models/outfit';
 
 const TAGS = {
     EveryDay: 'На каждый день',
@@ -23,7 +24,7 @@ const TAGS = {
     Vacation: 'В отпуск',
     Theater: 'В театр',
     House: 'Для дома',
-} as const;
+};
 
 @Component({
   standalone: true,
@@ -77,18 +78,23 @@ export class TapePage {
 
     }
 
-    cards = [
+    cards: Outfit[] = [
       {
         id: 1,
         username: 'UserName_1',
         imgProfile: 'U1',
         style: 'style_1',
         tag: 'tag_1',
-        mainImg: 'https://i.pinimg.com/736x/72/da/b9/72dab97065702d2e21a6933b5d937002.jpg',
-        secImg1: '',
-        secImg2: '',
+        imgs: [
+          'https://i.pinimg.com/736x/72/da/b9/72dab97065702d2e21a6933b5d937002.jpg',
+          'https://i.pinimg.com/1200x/f9/1b/38/f91b38b62b069ff7d769ab4311627d7b.jpg',
+          'https://i.pinimg.com/736x/fd/6d/0a/fd6d0a93824fa83f0f73ee35b0acaecf.jpg',
+        ],
         likesCounter: 999,
-        beenLiked: true
+        beenLiked: true,
+        userId: 1,
+        stuffIds: [1, 2, 3, 4],
+        status: 'public'
       },
       {
         id: 2,
@@ -96,11 +102,16 @@ export class TapePage {
         imgProfile: 'U2',
         style: 'style_2',
         tag: 'tag_2',
-        mainImg: 'https://i.pinimg.com/1200x/f9/1b/38/f91b38b62b069ff7d769ab4311627d7b.jpg',
-        secImg1: '',
-        secImg2: '',
+        imgs: [
+          'https://i.pinimg.com/1200x/f9/1b/38/f91b38b62b069ff7d769ab4311627d7b.jpg',
+          'https://i.pinimg.com/736x/72/da/b9/72dab97065702d2e21a6933b5d937002.jpg',
+          'https://i.pinimg.com/736x/fd/6d/0a/fd6d0a93824fa83f0f73ee35b0acaecf.jpg',
+        ],
+        stuffIds: [2],
         likesCounter: 123456,
-        beenLiked: false
+        beenLiked: false,
+        userId: 2,
+        status: 'public'
       },
       {
         id: 3,
@@ -108,19 +119,24 @@ export class TapePage {
         imgProfile: 'U3',
         style: 'style_3',
         tag: 'tag_3',
-        secImg1: '',
-        secImg2: '',
-        mainImg: 'https://i.pinimg.com/736x/fd/6d/0a/fd6d0a93824fa83f0f73ee35b0acaecf.jpg',
+        imgs: [
+          'https://i.pinimg.com/736x/fd/6d/0a/fd6d0a93824fa83f0f73ee35b0acaecf.jpg',
+          'https://i.pinimg.com/1200x/f9/1b/38/f91b38b62b069ff7d769ab4311627d7b.jpg',
+          'https://i.pinimg.com/736x/72/da/b9/72dab97065702d2e21a6933b5d937002.jpg',
+        ],
         likesCounter: 123456789,
-        beenLiked: true
+        beenLiked: true,
+        userId: 3,
+        stuffIds: [3],
+        status: 'public'
       }
     ]
 
     isAuthorized: boolean = true;
 
-    openDialogShowOutfit(id: number) {
+    openDialogShowOutfit(card: Outfit) {
       this.dialog.open(DialogShowOutfit, {
-        data: id,
+        data: card,
         maxWidth: '1080px',
       });
     }

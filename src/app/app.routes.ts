@@ -31,12 +31,7 @@ export const routes: Routes = [
         [
           {path: "", redirectTo: "my-stuff", pathMatch: "full"},
           {path: "my-stuff", component: MyStuffPage},
-          {path: "my-outfits", component: MyImagesPage, children:
-            [
-              {path: "adding-outfit", component: DialogAddEditOutfit},
-              {path: "editing-outfit", component: DialogAddEditOutfit}
-            ]
-          }
+          {path: "my-outfits", component: MyImagesPage}
         ]
       },
       {path: "calendar", component: CalendarPage},
@@ -48,7 +43,8 @@ export const routes: Routes = [
         ]
       },
       {path: "outfit/:outfitId", component: DialogShowOutfit},
-      {path: "settings", component: DialogProfileSettings}
+      {path: "settings", component: DialogProfileSettings},
+      {path: "creating", component: DialogAddEditOutfit},
     ]
   },
   {path: "not-found", component: UnknownPage},
