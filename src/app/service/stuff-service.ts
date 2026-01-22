@@ -14,7 +14,7 @@ export class StuffService {
   ) {}
 
   getData(): Observable<any> {
-    return this.http.get<any>(this.baseUrl + "data");
+    return this.http.get<any>(this.baseUrl + "data-stuffs");
   }
 
   getStuffs(): Observable<Stuff> {
@@ -39,5 +39,9 @@ export class StuffService {
 
   getMyStuffs(id: number): Observable<Stuff> {
     return this.http.get<Stuff>(this.baseUrl + "stuffs" + "?user_id="  + id);
+  }
+
+  getMyStuffsWithCategory(id: number, category: number) {
+    return this.http.get<Stuff>(this.baseUrl + "stuffs" + "?user_id="  + id + "&" + "category=" + category);
   }
 }
