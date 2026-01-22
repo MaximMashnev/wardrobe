@@ -35,3 +35,13 @@
   transition: opacity 0.25s, display 0.25s;
   transition-behavior: allow-discrete;
 }
+
+.dialog-main-content {
+  justify-content: space-evenly;
+}
+
+.obj-info {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}

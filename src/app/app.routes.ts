@@ -13,10 +13,6 @@ import { UserOutfits } from './components/user-outfits/user-outfits';
 import { UserLikes } from './components/user-likes/user-likes';
 import { UnknownPage } from './components/unknown-page/unknown-page';
 import { DialogShowOutfit } from './components/dialog-show-outfit/dialog-show-outfit';
-import { DialogAddEditOutfit } from './components/dialog-add-edit-outfit/dialog-add-edit-outfit';
-import { DialogAddEditStuff } from './components/dialog-add-edit-stuff/dialog-add-edit-stuff';
-import { DialogSelStuffForOutfits } from './components/dialog-sel-stuff-for-outfits/dialog-sel-stuff-for-outfits';
-import { DialogEditProfile } from './components/dialog-edit-profile/dialog-edit-profile';
 import { DialogProfileSettings } from './components/dialog-profile-settings/dialog-profile-settings';
 
 export const routes: Routes = [
@@ -42,9 +38,7 @@ export const routes: Routes = [
           {path: "likes", component: UserLikes}
         ]
       },
-      {path: "outfit/:outfitId", component: DialogShowOutfit},
-      {path: "settings", component: DialogProfileSettings},
-      {path: "creating", component: DialogAddEditOutfit},
+      {path: "outfit/:outfitId", component: DialogShowOutfit}
     ]
   },
   {path: "not-found", component: UnknownPage},

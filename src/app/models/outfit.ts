@@ -1,27 +1,17 @@
 export class Outfit {
-  constructor () {
-    this.id = null;
-    this.userId = null;
-    this.username = "";
-    this.imgProfile = (this.username.includes(" ")) ? this.username.split(' ')[0]+this.username.split(' ')[1] : this.username.slice(0, 2);
-    this.style = "";
-    this.tag = "";
-    this.imgs = [];
-    this.stuffIds = [];
-    this.likesCounter = 0;
-    this.beenLiked = false;
-    this.status = 'private';
-  }
-
-  id: number | null;
-  userId: number | null;
-  username: string;
-  imgProfile: string;
-  style: string;
-  tag: string;
-  imgs: Array<string>;
-  stuffIds: Array<number>;
-  likesCounter: number;
-  beenLiked: boolean;
-  status: 'private' | 'public' | 'hidden';
+  constructor (
+    public id: number | null = null,
+    public user_id: number = +localStorage.getItem('userId')!,
+    public name: string = "",
+    public style: string = "",
+    public tag: string = "",
+    public imgs: Array<string> = [],
+    public stuffIds: Array<number> = [],
+    public likesCounter: number = 0,
+    public beenLiked: boolean = false,
+    public dateLastWear: Date | string = "Отсутствует",
+    public countsWear: number = 0,
+    public cost: number = 0,
+    public status: 'private' | 'public' | 'hidden' = 'private',
+  ) {}
 }
