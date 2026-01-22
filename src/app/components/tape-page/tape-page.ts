@@ -78,11 +78,14 @@ export class TapePage {
 
     }
 
-    cards: Outfit[] = [
+    // TODO: Сделать выбор стилей из мок, подключить чипсы к фильтру, вывод опубликованных образов по фильтру и просто, сделать автоподрузку при скролле
+
+    cards: any[] = [
       {
         id: 1,
         username: 'UserName_1',
         imgProfile: 'U1',
+        name: "test",
         style: 'style_1',
         tag: 'tag_1',
         imgs: [
@@ -92,7 +95,7 @@ export class TapePage {
         ],
         likesCounter: 999,
         beenLiked: true,
-        userId: 1,
+        user_id: 1,
         stuffIds: [1, 2, 3, 4],
         status: 'public'
       },
@@ -100,6 +103,7 @@ export class TapePage {
         id: 2,
         username: 'UserName_2',
         imgProfile: 'U2',
+        name: "test",
         style: 'style_2',
         tag: 'tag_2',
         imgs: [
@@ -110,13 +114,14 @@ export class TapePage {
         stuffIds: [2],
         likesCounter: 123456,
         beenLiked: false,
-        userId: 2,
+        user_id: 2,
         status: 'public'
       },
       {
         id: 3,
         username: 'UserName_3',
         imgProfile: 'U3',
+        name: "test",
         style: 'style_3',
         tag: 'tag_3',
         imgs: [
@@ -126,7 +131,7 @@ export class TapePage {
         ],
         likesCounter: 123456789,
         beenLiked: true,
-        userId: 3,
+        user_id: 3,
         stuffIds: [3],
         status: 'public'
       }
