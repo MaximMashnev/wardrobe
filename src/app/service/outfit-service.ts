@@ -13,8 +13,16 @@ export class OutfitService {
     private http: HttpClient,
   ) {}
 
+  getData(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + "data-outfits");
+  }
+
   getOutfits(): Observable<Outfit> {
     return this.http.get<Outfit>(this.baseUrl + "outfits");
+  }
+
+  getMyOutfits(id: number): Observable<Outfit> {
+    return this.http.get<Outfit>(this.baseUrl + "outfits" + "?user_id="  + id);
   }
 
   getOutfit(id: number): Observable<Outfit> {
@@ -26,6 +34,10 @@ export class OutfitService {
   }
 
   editOutfit(Outfit: Outfit): Observable<Outfit> {
+    return this.http.patch<Outfit>(this.baseUrl + "outfits" + "/" + Outfit.id, Outfit);
+  }
+
+  publishOutfit(Outfit: Outfit): Observable<Outfit> {
     return this.http.patch<Outfit>(this.baseUrl + "outfits" + "/" + Outfit.id, Outfit);
   }
 

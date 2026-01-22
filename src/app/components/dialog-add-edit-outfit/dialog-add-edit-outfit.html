@@ -1,9 +1,16 @@
 <div class="dialog-window">
   <div class="dialog-title">
-    <h3>Добавление/редактировние образа</h3>
-    <!-- <button class="btn-m-dialog" (click)="closeDialog()">
+    <h3>
+      @if (data) {
+        Редактировние образа
+      }
+      @else {
+        Создание образа
+      }
+    </h3>
+    <button class="btn-m-dialog" (click)="closeDialog()">
       <mat-icon>close</mat-icon>
-    </button> -->
+    </button>
   </div>
   <div class="dialog-main-content">
     <div class="load-photo-block">
@@ -12,116 +19,218 @@
         <button class="btn-m-dialog">
           <mat-icon>add</mat-icon>
         </button>
-        <input type="text" class="main-text-input" placeholder="Ссылка на изображение">
+        <input type="text" class="main-text-input" placeholder="Ссылка на изображение" [(ngModel)]="outfit.imgs[0]">
       </div>
       <div class="loading-photo">
         <span class="m-normal">Загрузите доп. изображение 1</span>
         <button class="btn-m-dialog">
           <mat-icon>add</mat-icon>
         </button>
-        <input type="text" class="main-text-input" placeholder="Ссылка на изображение">
+        <input type="text" class="main-text-input" placeholder="Ссылка на изображение" [(ngModel)]="outfit.imgs[1]">
       </div>
       <div class="loading-photo">
         <span class="m-normal">Загрузите доп. изображение 2</span>
         <button class="btn-m-dialog">
           <mat-icon>add</mat-icon>
         </button>
-        <input type="text" class="main-text-input" placeholder="Ссылка на изображение">
+        <input type="text" class="main-text-input" placeholder="Ссылка на изображение" [(ngModel)]="outfit.imgs[2]">
       </div>
     </div>
-    <div class="obj-info-about">
+    <div class="obj-info">
       <div class="form-data">
         <span class="normal">Введите название образа</span>
-        <input class="main-text-input" type="url" placeholder="Название образа">
+        <input class="main-text-input" type="url" placeholder="Название образа" [(ngModel)]="outfit.name">
       </div>
-      <div class="form-data">
-        <span class="normal">Стиль</span>
-        <tui-textfield
-          tuiChevron
-          [stringify]="strStyle"
-          tuiTextfieldSize="m"
-          >
-          <input
-              class="btn-font"
-              tuiSelect
-              placeholder="Стиль"
-              [(ngModel)]="style"
-          />
-
-          <tui-data-list-wrapper
-              *tuiTextfieldDropdown
-              new
-              [items]="listStyles"
-          />
-        </tui-textfield>
-      </div>
-      <div class="form-data">
-        <span class="normal">Тег</span>
-        <tui-textfield
-          tuiChevron
-          [stringify]="strTag"
-          tuiTextfieldSize="m"
-          >
-          <input
-              class="btn-font"
-              tuiSelect
-              placeholder="Тег"
-              [(ngModel)]="tag"
-          />
-
-          <tui-data-list-wrapper
-              *tuiTextfieldDropdown
-              new
-              [items]="listTags"
-          />
-        </tui-textfield>
-      </div>
-      <div class="dd-group">
-        <div class="dd-bts">
-          <button class="dropdown-sel sec-text" (click)="dd1IsOpen = !dd1IsOpen">
-            <span class="btn-font">Фильтр</span>
-            <mat-icon>arrow_drop_down</mat-icon>
-          </button>
-          <button class="btn-m-dialog">
-            <mat-icon>add</mat-icon>
-          </button>
+      <div class="obj-info-about">
+        <div class="form-data">
+          <span class="normal">Стиль</span>
+          <!-- TODO: добавить возможность поиска с вводом стиля -->
+          <select name="categories" [(ngModel)]="outfit.style">
+            @for (item of dataOutfits.listStyles; track item.id) {
+              <option [value]="item.name">{{item.name}}</option>
+            }
+          </select>
         </div>
-        <div class="dd-list" [style]="dd1IsOpen ? 'display: flex; opacity: 1': 'display: none; opacity: 0'">
-          <div class="card-stuff">
-            <img src="dsds">
-            <div class="stuff-info">
-                <span class="normal">Название</span>
-                <span class="normal sec-text">Тип вещи</span>
-                <span class="normal">Стоимость</span>
-                <span class="normal sec-text">Размер</span>
-                <div class="other-info">
-                  <button type="button" class="btn-control" tuiHint="Убрать">
-                      <mat-icon>delete</mat-icon>
-                  </button>
-                </div>
-            </div>
+        <div class="form-data">
+          <span class="normal">Тег</span>
+          <!-- TODO: добавить возможность поиска с вводом тега -->
+          <select name="categories" [(ngModel)]="outfit.tag">
+            @for (item of dataOutfits.listTags; track item.id) {
+              <option [value]="item.name">{{item.name}}</option>
+            }
+          </select>
+        </div>
+        <div class="dd-group">
+          <div class="dd-bts">
+            <button class="dropdown-sel sec-text" (click)="HeadIsOpen = !HeadIsOpen">
+              <span class="btn-font">Голова</span>
+              @if (HeadIsOpen) {
+                <mat-icon>arrow_drop_up</mat-icon>
+              }
+              @else {
+                <mat-icon>arrow_drop_down</mat-icon>
+              }
+            </button>
+            <button class="btn-m-dialog" (click)="openDialogSelectStuff(1, HeadList)">
+              <mat-icon>add</mat-icon>
+            </button>
           </div>
-
-          <div class="card-stuff">
-            <img src="dsds">
-            <div class="stuff-info">
-                <span class="normal">Название</span>
-                <span class="normal sec-text">Тип вещи</span>
-                <span class="normal">Стоимость</span>
-                <span class="normal sec-text">Размер</span>
-                <div class="other-info">
-                  <button type="button" class="btn-control" tuiHint="Убрать">
-                      <mat-icon>delete</mat-icon>
-                  </button>
+          <div class="dd-list" [style]="HeadIsOpen ? 'display: flex; opacity: 1': 'display: none; opacity: 0'">
+            @for (item of HeadList; track $index) {
+              <div class="card-stuff">
+                <img [src]="item.img">
+                <div class="stuff-info">
+                    <span class="normal over-hide">{{item.name}}</span>
+                    <!-- TODO: Тип вещи (Обувь - ботинки или кроссовки) -->
+                    <span class="normal sec-text">Тип вещи {{item.category}}</span>
+                    <span class="normal">Стоимость {{item.cost}}</span>
+                    <span class="normal sec-text">Размер {{item.size}}</span>
+                    <div class="other-info">
+                      <!-- TODO: добавить удаление из списка -->
+                      <button type="button" class="btn-control" tuiHint="Убрать">
+                          <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
                 </div>
-            </div>
+              </div>
+            }
           </div>
-
+        </div>
+        <div class="dd-group">
+          <div class="dd-bts">
+            <button class="dropdown-sel sec-text" (click)="AccessoriesIsOpen = !AccessoriesIsOpen">
+              <span class="btn-font">Аксессуары</span>
+              @if (AccessoriesIsOpen) {
+                <mat-icon>arrow_drop_up</mat-icon>
+              }
+              @else {
+                <mat-icon>arrow_drop_down</mat-icon>
+              }
+            </button>
+            <button class="btn-m-dialog" (click)="openDialogSelectStuff(2, AccessoriesList)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div class="dd-list" [style]="AccessoriesIsOpen ? 'display: flex; opacity: 1': 'display: none; opacity: 0'">
+            @for (item of AccessoriesList; track $index) {
+              <div class="card-stuff">
+                <img [src]="item.img">
+                <div class="stuff-info">
+                    <span class="normal over-hide">{{item.name}}</span>
+                    <span class="normal sec-text">Тип вещи {{item.category}}</span>
+                    <span class="normal">Стоимость {{item.cost}}</span>
+                    <span class="normal sec-text">Размер {{item.size}}</span>
+                    <div class="other-info">
+                      <button type="button" class="btn-control" tuiHint="Убрать">
+                          <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+        <div class="dd-group">
+          <div class="dd-bts">
+            <button class="dropdown-sel sec-text" (click)="UpperBodyIsOpen = !UpperBodyIsOpen">
+              <span class="btn-font">Верхняя часть тела</span>
+              @if (UpperBodyIsOpen) {
+                <mat-icon>arrow_drop_up</mat-icon>
+              }
+              @else {
+                <mat-icon>arrow_drop_down</mat-icon>
+              }
+            </button>
+            <button class="btn-m-dialog" (click)="openDialogSelectStuff(3, UpperBodyList)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div class="dd-list" [style]="UpperBodyIsOpen ? 'display: flex; opacity: 1': 'display: none; opacity: 0'">
+            @for (item of UpperBodyList; track $index) {
+              <div class="card-stuff">
+                <img [src]="item.img">
+                <div class="stuff-info">
+                    <span class="normal">{{item.name}}</span>
+                    <span class="normal sec-text">Тип вещи {{item.category}}</span>
+                    <span class="normal">Стоимость {{item.cost}}</span>
+                    <span class="normal sec-text">Размер {{item.size}}</span>
+                    <div class="other-info">
+                      <button type="button" class="btn-control" tuiHint="Убрать">
+                          <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+        <div class="dd-group">
+          <div class="dd-bts">
+            <button class="dropdown-sel sec-text" (click)="HandsIsOpen = !HandsIsOpen">
+              <span class="btn-font">Руки</span>
+              @if (HandsIsOpen) {
+                <mat-icon>arrow_drop_up</mat-icon>
+              }
+              @else {
+                <mat-icon>arrow_drop_down</mat-icon>
+              }
+            </button>
+            <button class="btn-m-dialog" (click)="openDialogSelectStuff(4, HandsList)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div class="dd-list" [style]="HandsIsOpen ? 'display: flex; opacity: 1': 'display: none; opacity: 0'">
+          </div>
+        </div>
+        <div class="dd-group">
+          <div class="dd-bts">
+            <button class="dropdown-sel sec-text" (click)="LowerBodyIsOpen = !LowerBodyIsOpen">
+              <span class="btn-font">Нижняя часть тела</span>
+              @if (LowerBodyIsOpen) {
+                <mat-icon>arrow_drop_up</mat-icon>
+              }
+              @else {
+                <mat-icon>arrow_drop_down</mat-icon>
+              }
+            </button>
+            <button class="btn-m-dialog" (click)="openDialogSelectStuff(5, LowerBodyList)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div class="dd-list" [style]="LowerBodyIsOpen ? 'display: flex; opacity: 1': 'display: none; opacity: 0'">
+          </div>
+        </div>
+        <div class="dd-group">
+          <div class="dd-bts">
+            <button class="dropdown-sel sec-text" (click)="LegsIsOpen = !LegsIsOpen">
+              <span class="btn-font">Ноги</span>
+              @if (LegsIsOpen) {
+                <mat-icon>arrow_drop_up</mat-icon>
+              }
+              @else {
+                <mat-icon>arrow_drop_down</mat-icon>
+              }
+            </button>
+            <button class="btn-m-dialog" (click)="openDialogSelectStuff(6, LegsList)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div class="dd-list" [style]="LegsIsOpen ? 'display: flex; opacity: 1': 'display: none; opacity: 0'">
+          </div>
         </div>
       </div>
-      <button class="btn-6" type="submit">
-        Добавить\Сохранить
-      </button>
     </div>
   </div>
+  <mat-dialog-actions>
+    @if (data) {
+      <button class="nav-btn" type="submit" [mat-dialog-close]="outfit" (click)="editOutfit(outfit)">
+        Сохранить
+      </button>
+    }
+    @else {
+      <button class="nav-btn" type="submit" [mat-dialog-close]="outfit" (click)="addOutfit(outfit)">
+        Создать
+      </button>
+    }
+  </mat-dialog-actions>
 </div>
