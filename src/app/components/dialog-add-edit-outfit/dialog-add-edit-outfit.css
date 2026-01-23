@@ -1,7 +1,6 @@
 .dd-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 .dd-bts {
@@ -30,7 +29,6 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: 10px;
   opacity: 1;
   transition: opacity 0.25s, display 0.25s;
   transition-behavior: allow-discrete;
@@ -44,4 +42,8 @@
   display: flex;
   gap: 10px;
   flex-direction: column;
+}
+
+.card-stuff {
+  margin-top: 10px;
 }

@@ -48,7 +48,7 @@ export class DialogShowOutfit implements OnInit {
     for (let id of this.data[0].stuffIds) {
       url += "id=" + id + "&";
     }
-    return this.StuffService.getStuffForShowingOutfit(url).subscribe({
+    return this.StuffService.getStuffForOutfit(url).subscribe({
       next: (data) => {
         this.stuffs = data;
         this.cdr.detectChanges();

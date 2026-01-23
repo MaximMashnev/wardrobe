@@ -33,7 +33,7 @@ export class StuffService {
     return this.http.get<Stuff>(this.baseUrl + "stuffs" + "?user_id="  + id + "&" + "category=" + category);
   }
 
-  getStuffForShowingOutfit(urlIds: string) {
+  getStuffForOutfit(urlIds: string) {
     return this.http.get<Stuff>(this.baseUrl + "stuffs" + "?" + urlIds)
   }
 

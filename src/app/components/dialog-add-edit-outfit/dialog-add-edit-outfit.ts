@@ -1,3 +1,4 @@
+import { StuffService } from './../../service/stuff-service';
 import { OutfitService } from './../../service/outfit-service';
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -55,13 +56,15 @@ export class DialogAddEditOutfit implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Outfit | null,
     public dialog: MatDialog,
     private cdr: ChangeDetectorRef,
-    private OutfitService: OutfitService
+    private OutfitService: OutfitService,
+    private StuffService: StuffService
   ) {
     this.outfit = data ? data : new Outfit();
   }
 
   ngOnInit(): void {
     this.getDataForOutfit();
+    this.getStuffs();
   }
 
   openDialogSelectStuff(category: number, list: Array<Stuff>) {
@@ -72,10 +75,7 @@ export class DialogAddEditOutfit implements OnInit {
     });
     dialogAddStuff.afterClosed().subscribe((result: Stuff) => {
       if (result != null && result != undefined) {
-        console.log(result);
         list.push(result);
-        console.log(this.HeadList);
-        console.log(this.AccessoriesList);
         this.cdr.detectChanges();
       };
     });
@@ -90,8 +90,31 @@ export class DialogAddEditOutfit implements OnInit {
     })
   }
 
-  saveOutfitInStorage() {
+  getStuffs() {
+    let url = "";
+    for (let id of this.outfit.stuffIds) {
+      url += "id=" + id + "&";
+    }
+    return this.StuffService.getStuffForOutfit(url).subscribe({
+      next: (data) => {
+        for (let stuff of <any>data) {
+          if (stuff.category == 1) {this.HeadList.push(stuff)};
+          if (stuff.category == 2) {this.AccessoriesList.push(stuff)};
+          if (stuff.category == 3) {this.UpperBodyList.push(stuff)};
+          if (stuff.category == 4) {this.HandsList.push(stuff)};
+          if (stuff.category == 5) {this.LowerBodyList.push(stuff)};
+          if (stuff.category == 6) {this.LegsList.push(stuff)};
+        }
+        this.cdr.detectChanges();
+      },
+      error(err) {
+        console.log(err);
+      },
+    })
+  }
 
+  saveOutfitInStorage() {
+    // Сохранение в память, чтобы при закрытии продолжить собирать образ. Возможно, не стоит добавлять
   }
 
   addOutfit(data: Outfit) {
