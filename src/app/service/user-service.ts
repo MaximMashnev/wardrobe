@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { Observable } from 'rxjs/internal/Observable';
+import { publicUserInfo } from '../models/publicUserInfo';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +32,11 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + 'auth_me');
   }
 
-  getUserInfo(userId: number): Observable<User>{
-    return this.http.get<User>(this.baseUrl + "users/"+ userId)
+  getUserInfo(userId: number): Observable<publicUserInfo>{
+    return this.http.get<publicUserInfo>(this.baseUrl + "users/" + userId  + "?"+ "_select=-email,-password,-role");
+  }
+
+  getUsersInfo(url: string): Observable<publicUserInfo>{
+    return this.http.get<publicUserInfo>(this.baseUrl + "users?" + url + "_select=-email,-password,-role");
   }
 }

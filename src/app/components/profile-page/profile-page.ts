@@ -7,6 +7,7 @@ import { DialogEditProfile } from '../dialog-edit-profile/dialog-edit-profile';
 import { User } from '../../models/user';
 import { DialogProfileSettings } from '../dialog-profile-settings/dialog-profile-settings';
 import { UserService } from './../../service/user-service';
+import { publicUserInfo } from '../../models/publicUserInfo';
 
 @Component({
   selector: 'app-profile-page',
@@ -22,7 +23,9 @@ import { UserService } from './../../service/user-service';
 })
 export class ProfilePage implements OnInit {
   myProfile: boolean = false;
-  userData!: User;
+  userData!: publicUserInfo;
+  myUserData!: User;
+  user!: any;
   paramId!: number;
 
   constructor (
@@ -42,7 +45,8 @@ export class ProfilePage implements OnInit {
     else {
       this.getProfileInfo();
       if (this.userData == undefined) {
-        this.router.navigate(['/not-found']);
+        // this.router.navigate(['/not-found']);
+        console.log(this.userData);
       }
     }
   }
@@ -59,7 +63,8 @@ export class ProfilePage implements OnInit {
     this.UserService.getUserInfo(this.paramId).subscribe({
       next: (data) => {
         this.userData = data;
-        console.log(this.userData);
+        // TODO убрать userData или user
+        this.user = this.userData;
         this.cdr.detectChanges();
       },
       error: (Error) => {
@@ -71,7 +76,9 @@ export class ProfilePage implements OnInit {
   getMyProfileInfo() {
     this.UserService.getMe().subscribe({
       next: (data) => {
-        this.userData = data;
+        this.myUserData = data;
+        // TODO убрать myUserData или user
+        this.user = this.myUserData;
         console.log(this.userData);
         this.cdr.detectChanges();
       }
@@ -81,7 +88,7 @@ export class ProfilePage implements OnInit {
   openDialogSettings() {
     const dialogSettingsUser = this.dialog.open(DialogProfileSettings, {
       width: '400px',
-      data: this.userData
+      data: this.myUserData
     });
     dialogSettingsUser.afterClosed().subscribe((result: User) => {
       if (result != null) {
@@ -93,7 +100,7 @@ export class ProfilePage implements OnInit {
   openDialogEditUser() {
     const dialogEditUser = this.dialog.open(DialogEditProfile, {
       width: '400px',
-      data: this.userData
+      data: this.myUserData
     });
     dialogEditUser.afterClosed().subscribe((result: User) => {
       if (result != null) {
