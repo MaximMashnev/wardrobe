@@ -1,7 +1,12 @@
-.right-align {
-  margin: 0 0 0 auto !important;
-}
-
 .full-width-input {
   width: 100%;
+}
+
+.btn-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  padding: 0;
+  flex-wrap: nowrap;
 }

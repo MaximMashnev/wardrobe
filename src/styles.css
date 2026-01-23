@@ -627,6 +627,12 @@ select {
   align-items: center;
 }
 
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--cards-color) !important;
+  border-radius: 16px;
+  border: 1px solid var(--second-font-color);
+}
+
 @media screen and (max-width: 1000px){
   .log-reg-container {
     width: auto;

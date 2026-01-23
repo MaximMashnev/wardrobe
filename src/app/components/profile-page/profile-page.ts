@@ -44,9 +44,9 @@ export class ProfilePage implements OnInit {
     }
     else {
       this.getProfileInfo();
-      if (this.userData == undefined) {
+      if (this.user == undefined) {
         // this.router.navigate(['/not-found']);
-        console.log(this.userData);
+        console.log(this.user);
       }
     }
   }
@@ -79,7 +79,7 @@ export class ProfilePage implements OnInit {
         this.myUserData = data;
         // TODO убрать myUserData или user
         this.user = this.myUserData;
-        console.log(this.userData);
+        console.log(this.user);
         this.cdr.detectChanges();
       }
     })
@@ -92,7 +92,12 @@ export class ProfilePage implements OnInit {
     });
     dialogSettingsUser.afterClosed().subscribe((result: User) => {
       if (result != null) {
-          console.log(result);
+        this.UserService.editProfile(result).subscribe({
+          next(value) {
+            console.log("editing setting success");
+          },
+        });
+        this.cdr.detectChanges();
       };
     });
   }
@@ -104,7 +109,12 @@ export class ProfilePage implements OnInit {
     });
     dialogEditUser.afterClosed().subscribe((result: User) => {
       if (result != null) {
-          console.log(result);
+        this.UserService.editProfile(result).subscribe({
+          next(value) {
+            console.log("editing profile success");
+          },
+        });
+        this.cdr.detectChanges();
       };
     });
   }

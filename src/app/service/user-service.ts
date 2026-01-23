@@ -32,11 +32,15 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + 'auth_me');
   }
 
-  getUserInfo(userId: number): Observable<publicUserInfo>{
+  getUserInfo(userId: number): Observable<publicUserInfo> {
     return this.http.get<publicUserInfo>(this.baseUrl + "users/" + userId  + "?"+ "_select=-email,-password,-role");
   }
 
-  getUsersInfo(url: string): Observable<publicUserInfo>{
+  getUsersInfo(url: string): Observable<publicUserInfo> {
     return this.http.get<publicUserInfo>(this.baseUrl + "users?" + url + "_select=-email,-password,-role");
+  }
+
+  editProfile(user: User): Observable<User> {
+    return this.http.patch<User>(this.baseUrl + "users/" + user.id!, user);
   }
 }
