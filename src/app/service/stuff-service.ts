@@ -25,6 +25,18 @@ export class StuffService {
     return this.http.get<Stuff>(this.baseUrl + "stuffs" + "/" + id);
   }
 
+  getMyStuffs(id: number): Observable<Stuff> {
+    return this.http.get<Stuff>(this.baseUrl + "stuffs" + "?user_id="  + id);
+  }
+
+  getMyStuffsWithCategory(id: number, category: number) {
+    return this.http.get<Stuff>(this.baseUrl + "stuffs" + "?user_id="  + id + "&" + "category=" + category);
+  }
+
+  getStuffForShowingOutfit(urlIds: string) {
+    return this.http.get<Stuff>(this.baseUrl + "stuffs" + "?" + urlIds)
+  }
+
   addStuff(stuff: Stuff): Observable<Stuff> {
     return this.http.post<Stuff>(this.baseUrl + "stuffs", stuff);
   }
@@ -35,13 +47,5 @@ export class StuffService {
 
   deleteStuff(id: number): Observable<Stuff> {
     return this.http.delete<Stuff>(this.baseUrl + "stuffs" + "/"  + id);
-  }
-
-  getMyStuffs(id: number): Observable<Stuff> {
-    return this.http.get<Stuff>(this.baseUrl + "stuffs" + "?user_id="  + id);
-  }
-
-  getMyStuffsWithCategory(id: number, category: number) {
-    return this.http.get<Stuff>(this.baseUrl + "stuffs" + "?user_id="  + id + "&" + "category=" + category);
   }
 }

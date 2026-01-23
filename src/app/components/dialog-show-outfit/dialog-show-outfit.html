@@ -3,16 +3,16 @@
     <div class="user-info-block">
       <div class="user-avatar">
         <tui-avatar
-        [src]="data.imgProfile"
+        [src]="data[1].imgProfile"
         size="l"
         />
       </div>
       <div class="user-info-card">
         <span class="normal over-hide">
-          {{data.username}}
+          {{data[1].username}}
         </span><br>
         <span class="m-normal sec-text over-hide">
-          {{data.tag}}
+          {{data[0].tag}}
         </span>
       </div>
     </div>
@@ -23,24 +23,24 @@
   <div class="dialog-main-content">
     <div class="images-block">
       <div class="col-images">
-        @for (imgLink of data.imgs; track $index) {
+        @for (imgLink of data[0].imgs; track $index) {
           <img class="m-img photo-card" [class]="selectMainPhoto == $index ? 'activeImg': ''" [src]="imgLink" (click)="selectMainPhoto = $index">
         }
       </div>
-      <img class="select-image photo-card" [src]="data.imgs[selectMainPhoto]">
+      <img class="select-image photo-card" [src]="data[0].imgs[selectMainPhoto]">
     </div>
     <div class="stuffs">
-      @for (item of data.stuffIds; track $index) {
+      @for (item of stuffs; track $index) {
         <div class="card-stuff">
-          <img [src]="data.imgs[1]">
+          <img [src]="item.img">
           <div class="stuff-info">
-            <span class="normal">Название {{item}}</span>
-            <span class="normal sec-text">Тип вещи</span>
-            <span class="normal">Стоимость</span>
-            <span class="normal sec-text">Размер</span>
+            <span class="normal">Название {{item.name}}</span>
+            <span class="normal sec-text">Бренд {{item.brand}}</span>
+            <span class="normal">Стоимость {{item.cost}}</span>
+            <span class="normal sec-text">Размер {{item.size}}</span>
             <div class="other-info">
               <button type="button" class="btn-control" tuiHint="Ссылка на товар">
-                <a href="" target="_blank">
+                <a [href]="item.link" target="_blank">
                   <mat-icon style="rotate: -45deg; margin-top: 4px;">link</mat-icon>
                 </a>
               </button>
@@ -58,10 +58,10 @@
         type="checkbox"
         appearance=""
         size="m"
-        [(ngModel)] = "data.beenLiked"
+        [(ngModel)] = "data[0].beenLiked"
       >
       <span class="normal inac">
-        {{definitionLikes(data.likesCounter)}}
+        {{definitionLikes(data[0].likesCounter)}}
       </span>
     </div>
   </div>

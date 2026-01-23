@@ -1,4 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { UserService } from './../../service/user-service';
+import { Outfit } from './../../models/outfit';
+import { OutfitService } from './../../service/outfit-service';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TuiLike, TuiAvatar, TuiFilter } from '@taiga-ui/kit';
 import {FormsModule} from '@angular/forms';
 import {TuiTextfield} from '@taiga-ui/core';
@@ -13,7 +16,7 @@ import {BehaviorSubject, map, type Observable} from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogShowOutfit } from '../dialog-show-outfit/dialog-show-outfit';
-import { Outfit } from '../../models/outfit';
+import { publicUserInfo } from '../../models/publicUserInfo';
 
 const TAGS = {
     EveryDay: 'На каждый день',
@@ -44,118 +47,99 @@ const TAGS = {
   templateUrl: './tape-page.html',
   styleUrl: './tape-page.css',
 })
-export class TapePage {
-	  protected readonly countries$: Observable<string[]> = inject(TUI_COUNTRIES).pipe(
-        map(Object.values),
-    );
+export class TapePage implements OnInit {
+  protected readonly countries$: Observable<string[]> = inject(TUI_COUNTRIES).pipe(
+      map(Object.values),
+  );
 
-    protected value: string | null = null;
+  protected value: string | null = null;
 
-	  protected readonly items = Object.values(TAGS);
-    protected readonly filters$ = new BehaviorSubject<readonly string[]>([]);
+  protected readonly items = Object.values(TAGS);
+  protected readonly filters$ = new BehaviorSubject<readonly string[]>([]);
 
-    protected readonly checked$ = this.filters$.pipe(
-        map(({length}) => (length === this.items.length ? 'checked' : '')),
-    );
+  protected readonly checked$ = this.filters$.pipe(
+      map(({length}) => (length === this.items.length ? 'checked' : '')),
+  );
 
-    protected readonly model$ = this.filters$.pipe(
-        map((value) => (value.length === this.items.length ? [] : value)),
-    );
+  protected readonly model$ = this.filters$.pipe(
+      map((value) => (value.length === this.items.length ? [] : value)),
+  );
 
-    protected onModelChange(model: readonly string[]): void {
-        this.filters$.next(model);
-    }
+  protected onModelChange(model: readonly string[]): void {
+      this.filters$.next(model);
+  }
 
-    protected toggleAll(): void {
-        this.filters$.next(
-            this.items.length === this.filters$.value.length ? [] : [...this.items],
-        );
-    }
+  protected toggleAll(): void {
+      this.filters$.next(
+          this.items.length === this.filters$.value.length ? [] : [...this.items],
+      );
+  }
 
-    constructor (
-      public dialog: MatDialog,
-    ) {
+  constructor (
+    public dialog: MatDialog,
+    private OutfitService: OutfitService,
+    private UserService: UserService,
+    public cdr: ChangeDetectorRef,
+  ) {
 
-    }
+  }
 
-    // TODO: Сделать выбор стилей из мок, подключить чипсы к фильтру, вывод опубликованных образов по фильтру и просто, сделать автоподрузку при скролле
+  ngOnInit(): void {
+    this.getOutFits();
+  }
 
-    cards: any[] = [
-      {
-        id: 1,
-        username: 'UserName_1',
-        imgProfile: 'U1',
-        name: "test",
-        style: 'style_1',
-        tag: 'tag_1',
-        imgs: [
-          'https://i.pinimg.com/736x/72/da/b9/72dab97065702d2e21a6933b5d937002.jpg',
-          'https://i.pinimg.com/1200x/f9/1b/38/f91b38b62b069ff7d769ab4311627d7b.jpg',
-          'https://i.pinimg.com/736x/fd/6d/0a/fd6d0a93824fa83f0f73ee35b0acaecf.jpg',
-        ],
-        likesCounter: 999,
-        beenLiked: true,
-        user_id: 1,
-        stuffIds: [1, 2, 3, 4],
-        status: 'public'
+  // TODO: Сделать выбор стилей из мок, подключить чипсы к фильтру, вывод опубликованных образов по фильтру и просто, сделать автоподрузку при скролле
+
+  outfitCards!: any;
+  users!: any;
+  isAuthorized: boolean = localStorage.getItem("Bearer") ? true : false;
+
+  openDialogShowOutfit(card: Outfit, user: publicUserInfo) {
+    this.dialog.open(DialogShowOutfit, {
+      data: [card, user],
+      maxWidth: '1080px',
+    });
+  }
+
+  getOutFits() {
+    return this.OutfitService.getOutfitsForTape().subscribe({
+      next: (data) => {
+        this.outfitCards = data;
+        this.getUsersInfo();
+        this.cdr.detectChanges();
       },
-      {
-        id: 2,
-        username: 'UserName_2',
-        imgProfile: 'U2',
-        name: "test",
-        style: 'style_2',
-        tag: 'tag_2',
-        imgs: [
-          'https://i.pinimg.com/1200x/f9/1b/38/f91b38b62b069ff7d769ab4311627d7b.jpg',
-          'https://i.pinimg.com/736x/72/da/b9/72dab97065702d2e21a6933b5d937002.jpg',
-          'https://i.pinimg.com/736x/fd/6d/0a/fd6d0a93824fa83f0f73ee35b0acaecf.jpg',
-        ],
-        stuffIds: [2],
-        likesCounter: 123456,
-        beenLiked: false,
-        user_id: 2,
-        status: 'public'
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+  getUsersInfo() {
+    let urlIds = "";
+    for (let card of this.outfitCards) {
+      urlIds += "id=" + card.user_id + "&";
+    }
+    return this.UserService.getUsersInfo(urlIds).subscribe({
+      next: (data) => {
+        this.users = data;
+        this.cdr.detectChanges();
       },
-      {
-        id: 3,
-        username: 'UserName_3',
-        imgProfile: 'U3',
-        name: "test",
-        style: 'style_3',
-        tag: 'tag_3',
-        imgs: [
-          'https://i.pinimg.com/736x/fd/6d/0a/fd6d0a93824fa83f0f73ee35b0acaecf.jpg',
-          'https://i.pinimg.com/1200x/f9/1b/38/f91b38b62b069ff7d769ab4311627d7b.jpg',
-          'https://i.pinimg.com/736x/72/da/b9/72dab97065702d2e21a6933b5d937002.jpg',
-        ],
-        likesCounter: 123456789,
-        beenLiked: true,
-        user_id: 3,
-        stuffIds: [3],
-        status: 'public'
-      }
-    ]
+      error(err) {
+        console.log(err);
+      },
+    })
+  }
 
-    isAuthorized: boolean = true;
+  definitionLikes(numLikes: number) {
+    let length = (numLikes.toString().length);
+    let str = (numLikes / (length > 6 ? 1e6 : 1e3) ).toString();
 
-    openDialogShowOutfit(card: Outfit) {
-      this.dialog.open(DialogShowOutfit, {
-        data: card,
-        maxWidth: '1080px',
-      });
+    if (length < 4) return numLikes;
+    if (str[3] == '.') {
+      return str.slice(0, 3) + (length > 6 ? "m": "k");
     }
-
-    definitionLikes(numLikes: number) {
-      let length = (numLikes.toString().length);
-      let str = (numLikes / (length > 6 ? 1e6 : 1e3) ).toString();
-
-      if (length < 4) return numLikes;
-      if (str[3] == '.') {
-        return str.slice(0, 3) + (length > 6 ? "m": "k");
-      }
-      else {
-        return str.slice(0, 4) + (length > 6 ? "m": "k");
-      }
+    else {
+      return str.slice(0, 4) + (length > 6 ? "m": "k");
     }
+  }
 }

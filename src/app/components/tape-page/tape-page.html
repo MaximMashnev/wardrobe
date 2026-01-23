@@ -27,9 +27,9 @@
   </div>
   </div>
   <div class="grid-cards">
-    @for (card of cards; track card.id) {
+    @for (card of outfitCards; track card.id) {
       <div class="tape-card-n">
-        <a class="card-main-img" (click)="openDialogShowOutfit(card)">
+        <a class="card-main-img" (click)="openDialogShowOutfit(card, users[card.user_id-1])">
           <img class="photo-card" [src]="card.imgs[0]">
           <div class="hover-text"><span class="b-normal w">Смотреть образ</span></div>
         </a>
@@ -37,13 +37,13 @@
           <div class="user-info-block">
             <div class="user-avatar">
               <tui-avatar
-              [src]="card.imgProfile"
+              [src]="users[card.user_id-1].imgProfile"
               size="l"
               />
             </div>
             <div class="user-info-card">
               <span class="normal over-hide">
-                {{card.username}}
+                {{users[card.user_id-1].username}}
               </span><br>
               <span class="m-normal sec-text over-hide">
                 {{card.tag}}

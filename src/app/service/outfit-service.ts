@@ -21,6 +21,10 @@ export class OutfitService {
     return this.http.get<Outfit>(this.baseUrl + "outfits");
   }
 
+  getOutfitsForTape(): Observable<Outfit> {
+    return this.http.get<Outfit>(this.baseUrl + "outfits" + "?status="  + "public");
+  }
+
   getMyOutfits(id: number): Observable<Outfit> {
     return this.http.get<Outfit>(this.baseUrl + "outfits" + "?user_id="  + id);
   }
