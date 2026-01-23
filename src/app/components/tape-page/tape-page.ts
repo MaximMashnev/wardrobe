@@ -92,7 +92,6 @@ export class TapePage implements OnInit {
 
   outfitCards!: any;
   users!: any;
-  isAuthorized: boolean = localStorage.getItem("Bearer") ? true : false;
 
   openDialogShowOutfit(card: Outfit, user: publicUserInfo) {
     this.dialog.open(DialogShowOutfit, {
@@ -128,6 +127,27 @@ export class TapePage implements OnInit {
         console.log(err);
       },
     })
+  }
+
+  canLiket(userId: number): boolean {
+    // TODO Добавить то же самое в просмотр outfit
+    try {
+      let isAuthorized = localStorage.getItem("Bearer") ? true : false;
+      let myOutfitCard = (+localStorage.getItem("userId")! == userId) ? true : false;
+      if (isAuthorized && !myOutfitCard) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    catch {
+      return false;
+    }
+  }
+
+  putLike() {
+    // TODO добавить в модель пользователя список с ид лайкнутых карточек, убрать из модели карточек beenLiked
   }
 
   definitionLikes(numLikes: number) {
