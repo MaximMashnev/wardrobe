@@ -17,20 +17,24 @@ export class OutfitService {
     return this.http.get<any>(this.baseUrl + "data-outfits");
   }
 
-  getOutfits(): Observable<Outfit> {
-    return this.http.get<Outfit>(this.baseUrl + "outfits");
+  getOutfits(): Observable<Outfit[]> {
+    return this.http.get<Outfit[]>(this.baseUrl + "outfits");
   }
 
-  getOutfitsForTape(): Observable<Outfit> {
-    return this.http.get<Outfit>(this.baseUrl + "outfits" + "?status="  + "public");
+  getOutfitsForTape(): Observable<Outfit[]> {
+    return this.http.get<Outfit[]>(this.baseUrl + "outfits" + "?status="  + "public");
   }
 
-  getOutfitsForTapeWithFilters(filters: string): Observable<Outfit> {
-    return this.http.get<Outfit>(this.baseUrl + "outfits" + "?status="  + "public" + filters);
+  getOutfitsForTapeWithFilters(filters: string): Observable<Outfit[]> {
+    return this.http.get<Outfit[]>(this.baseUrl + "outfits" + "?status="  + "public" + filters);
   }
 
-  getMyOutfits(id: number): Observable<Outfit> {
-    return this.http.get<Outfit>(this.baseUrl + "outfits" + "?user_id="  + id);
+  getUserPublishedOutfits(id: number): Observable<Outfit[]> {
+    return this.http.get<Outfit[]>(this.baseUrl + "outfits" + "?status="  + "public" + "&" + "user_id=" + id);
+  }
+
+  getMyOutfits(id: number): Observable<Outfit[]> {
+    return this.http.get<Outfit[]>(this.baseUrl + "outfits" + "?user_id="  + id);
   }
 
   getOutfit(id: number): Observable<Outfit> {
