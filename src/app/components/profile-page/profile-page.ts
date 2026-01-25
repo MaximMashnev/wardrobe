@@ -26,13 +26,12 @@ export class ProfilePage implements OnInit {
   userData!: publicUserInfo;
   myUserData!: User;
   user!: any;
-  paramId!: number;
+  public paramId!: number;
 
   constructor (
     public dialog: MatDialog,
     private routes: ActivatedRoute,
     private UserService: UserService,
-    private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
 

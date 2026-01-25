@@ -17,7 +17,7 @@ import { Outfit } from '../../models/outfit';
 })
 export class MyImagesPage implements OnInit {
 
-  images!: any;
+  images!: Outfit[];
 
   constructor (
     private cdr: ChangeDetectorRef,

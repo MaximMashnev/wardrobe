@@ -7,6 +7,7 @@ import {FormsModule} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogRef, MatDialogTitle, MatDialogModule } from '@angular/material/dialog';
 import { Outfit } from '../../models/outfit';
 import { publicUserInfo } from '../../models/publicUserInfo';
+import { Stuff } from '../../models/stuff';
 
 @Component({
   standalone: true,
@@ -23,10 +24,11 @@ import { publicUserInfo } from '../../models/publicUserInfo';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogShowOutfit implements OnInit {
+  // TODO убрать outfitId и заменить функцией, добавить открытие по ссылке
   outfitId = input.required<string>();
   isDialogMode: boolean = false;
   selectMainPhoto: number = 0;
-  stuffs!: any;
+  stuffs!: Stuff[];
 
   constructor (
     public dialogRef: MatDialogRef<DialogShowOutfit>,

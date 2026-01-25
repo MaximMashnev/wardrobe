@@ -5,6 +5,7 @@ import {TuiHint} from '@taiga-ui/core';
 import { DialogAddEditStuff } from '../dialog-add-edit-stuff/dialog-add-edit-stuff';
 import { Stuff } from '../../models/stuff';
 import { StuffService } from "../../service/stuff-service";
+import { Outfit } from '../../models/outfit';
 
 @Component({
   selector: 'app-my-stuff-page',
@@ -14,7 +15,7 @@ import { StuffService } from "../../service/stuff-service";
 })
 export class MyStuffPage implements OnInit{
 
-  clothings: any;
+  clothings!: Stuff[];
 
   constructor (
     public dialog: MatDialog,

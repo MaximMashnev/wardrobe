@@ -36,8 +36,8 @@ export class UserService {
     return this.http.get<publicUserInfo>(this.baseUrl + "users/" + userId  + "?"+ "_select=-email,-password,-role");
   }
 
-  getUsersInfo(url: string): Observable<publicUserInfo> {
-    return this.http.get<publicUserInfo>(this.baseUrl + "users?" + url + "_select=-email,-password,-role");
+  getUsersInfo(url: string): Observable<publicUserInfo[]> {
+    return this.http.get<publicUserInfo[]>(this.baseUrl + "users?" + url + "_select=-email,-password,-role");
   }
 
   editProfile(user: User): Observable<User> {

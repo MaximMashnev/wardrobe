@@ -17,7 +17,7 @@ import { Stuff } from '../../models/stuff';
   styleUrl: './dialog-sel-stuff-for-outfits.css',
 })
 export class DialogSelStuffForOutfits implements OnInit {
-  clothings!: any;
+  clothings!: Stuff[];
 
   constructor (
     public dialogRef: MatDialogRef<DialogAddEditOutfit>,

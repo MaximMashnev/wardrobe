@@ -17,24 +17,24 @@ export class StuffService {
     return this.http.get<any>(this.baseUrl + "data-stuffs");
   }
 
-  getStuffs(): Observable<Stuff> {
-    return this.http.get<Stuff>(this.baseUrl + "stuffs");
+  getStuffs(): Observable<Stuff[]> {
+    return this.http.get<Stuff[]>(this.baseUrl + "stuffs");
   }
 
   getStuff(id: number): Observable<Stuff> {
     return this.http.get<Stuff>(this.baseUrl + "stuffs" + "/" + id);
   }
 
-  getMyStuffs(id: number): Observable<Stuff> {
-    return this.http.get<Stuff>(this.baseUrl + "stuffs" + "?user_id="  + id);
+  getMyStuffs(id: number): Observable<Stuff[]> {
+    return this.http.get<Stuff[]>(this.baseUrl + "stuffs" + "?user_id="  + id);
   }
 
-  getMyStuffsWithCategory(id: number, category: number) {
-    return this.http.get<Stuff>(this.baseUrl + "stuffs" + "?user_id="  + id + "&" + "category=" + category);
+  getMyStuffsWithCategory(id: number, category: number): Observable<Stuff[]> {
+    return this.http.get<Stuff[]>(this.baseUrl + "stuffs" + "?user_id="  + id + "&" + "category=" + category);
   }
 
-  getStuffForOutfit(urlIds: string) {
-    return this.http.get<Stuff>(this.baseUrl + "stuffs" + "?" + urlIds)
+  getStuffForOutfit(urlIds: string): Observable<Stuff[]> {
+    return this.http.get<Stuff[]>(this.baseUrl + "stuffs" + "?" + urlIds)
   }
 
   addStuff(stuff: Stuff): Observable<Stuff> {

@@ -45,8 +45,8 @@ export class TapePage implements OnInit {
 
   // TODO: сделать автоподрузку при скролле, оформление селекта и чипсов
 
-  outfitCards!: any;
-  users!: any;
+  outfitCards!: Outfit[];
+  users!: publicUserInfo[];
   filters!: any;
   selectTags!: string[];
   selectStyles = new FormControl([]);

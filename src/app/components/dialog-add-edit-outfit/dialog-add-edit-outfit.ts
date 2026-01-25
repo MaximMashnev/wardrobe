@@ -8,16 +8,6 @@ import { Stuff } from '../../models/stuff';
 import { DialogSelStuffForOutfits } from '../dialog-sel-stuff-for-outfits/dialog-sel-stuff-for-outfits';
 import { Outfit } from '../../models/outfit';
 
-interface Tag {
-  id: number;
-  name: string;
-}
-
-interface Style {
-  id: number;
-  name: string;
-}
-
 @Component({
   selector: 'app-dialog-add-edit-outfit',
   imports: [
