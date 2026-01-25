@@ -16,6 +16,7 @@ export class User {
     public likes: number = 0,
     public subscribers: number = 0,
     public likesHidden: boolean = false,
+    public likeIt: Array<number> = [],
   ) {
     // this.imgProfile = username.includes(" ") ? username.split(' ')[0] + username.split(' ')[1] : username.slice(0, 2);
   }

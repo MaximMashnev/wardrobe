@@ -58,7 +58,7 @@
                   type="checkbox"
                   appearance=""
                   size="m"
-                  [(ngModel)] = "card.beenLiked"
+                  (selectionchange)="putLike(card.id!)"
                 >
                 <span class="normal inac">
                   {{definitionLikes(card.likesCounter)}}

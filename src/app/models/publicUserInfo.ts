@@ -13,5 +13,6 @@ export class publicUserInfo {
     public likes: number,
     public subscribers: number,
     public likesHidden: boolean,
+    public likeIt: Array<number>[],
   ) {}
 }

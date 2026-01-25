@@ -135,7 +135,7 @@ export class TapePage implements OnInit {
     }
   }
 
-  putLike() {
+  putLike(outfitId: number) {
     // TODO добавить в модель пользователя список с ид лайкнутых карточек, убрать из модели карточек beenLiked
   }
 

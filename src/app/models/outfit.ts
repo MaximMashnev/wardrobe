@@ -8,7 +8,6 @@ export class Outfit {
     public imgs: Array<string> = [],
     public stuffIds: Array<number> = [],
     public likesCounter: number = 0,
-    public beenLiked: boolean = false,
     public dateLastWear: Date | string = "Отсутствует",
     public countsWear: number = 0,
     public cost: number = 0,
