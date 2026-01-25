@@ -37,6 +37,10 @@ export class OutfitService {
     return this.http.get<Outfit[]>(this.baseUrl + "outfits" + "?user_id="  + id);
   }
 
+  getLikedOutfits(likes: string): Observable<Outfit[]> {
+    return this.http.get<Outfit[]>(this.baseUrl + "outfits" + "?"  + likes);
+  }
+
   getOutfit(id: number): Observable<Outfit> {
     return this.http.get<Outfit>(this.baseUrl + "outfits" + "/" + id);
   }

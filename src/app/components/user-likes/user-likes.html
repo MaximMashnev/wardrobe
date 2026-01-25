@@ -1,25 +1,39 @@
 <main>
   <div class="grid-cards">
-    <div class="user-outfits-likes-card">
-        <a (click)="openDialogShowOutfit(test.id)">
-          <img class="photo-card" [src]="test.image">
-          <div class="hover-text"><span class="b-normal w">Смотреть образ</span></div>
+    @if (ProfilePage.user.likesHidden) {
+      <span class="normal">Пользователь скрыл свои лайки</span>
+    }
+    @else {
+      @if (ProfilePage.user.likeIt.length == 0) {
+        <span class="normal">Ничего не найдено</span>
+      }
+      @else {
+        @for (outfit of likesOutfits; track outfit.id) {
+          <div class="user-outfits-likes-card">
+              <a (click)="openDialogShowOutfit(outfit)">
+                <img class="photo-card" [src]="outfit.imgs[0]">
+                <div class="hover-text"><span class="b-normal w">Смотреть образ</span></div>
 
-          <div class="card-like-block">
-            <div class="like-btn">
-              <input
-                class="like"
-                tuiLike="var(--like-color)"
-                type="checkbox"
-                appearance=""
-                size="m"
-              >
-              <span class="normal inac">
-                {{test.likesCounter}}k
-              </span>
-            </div>
+                <div class="card-like-block">
+                  <div class="like-btn">
+                    <input
+                      class="like"
+                      tuiLike="var(--like-color)"
+                      type="checkbox"
+                      appearance=""
+                      size="m"
+                    >
+                    <span class="normal w">
+                      {{definitionLikes(outfit.likesCounter)}}
+                    </span>
+                  </div>
+                </div>
+              </a>
           </div>
-        </a>
-    </div>
+        }
+
+      }
+    }
+
   </div>
 </main>

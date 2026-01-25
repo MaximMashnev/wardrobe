@@ -6,7 +6,7 @@
     @else {
       @for (outfit of userOutfits; track outfit.id) {
         <div class="user-outfits-likes-card">
-            <a (click)="openDialogShowOutfit(outfit.id!)">
+            <a (click)="openDialogShowOutfit(outfit)">
               <img class="photo-card" [src]="outfit.imgs[0]">
               <div class="hover-text"><span class="b-normal w">Смотреть образ</span></div>
 
@@ -19,8 +19,8 @@
                     appearance=""
                     size="m"
                   >
-                  <span class="normal inac">
-                    {{outfit.likesCounter}}k
+                  <span class="normal w">
+                    {{definitionLikes(outfit.likesCounter)}}
                   </span>
                 </div>
               </div>

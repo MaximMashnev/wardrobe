@@ -4,10 +4,11 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogShowOutfit } from '../dialog-show-outfit/dialog-show-outfit';
 import { Outfit } from '../../models/outfit';
+import { TuiLike, TuiAvatar,} from '@taiga-ui/kit';
 
 @Component({
   selector: 'app-user-outfits',
-  imports: [],
+  imports: [TuiLike],
   templateUrl: './user-outfits.html',
   styleUrl: './user-outfits.css',
 })
@@ -25,9 +26,9 @@ export class UserOutfits implements OnInit{
     this.getPublishedOutfits();
   }
 
-  openDialogShowOutfit(id: number) {
+  openDialogShowOutfit(outfit: Outfit) {
     this.dialog.open(DialogShowOutfit, {
-      data: id,
+      data: [outfit, this.ProfilePage.user],
       maxWidth: '1080px',
     });
   }
@@ -43,5 +44,18 @@ export class UserOutfits implements OnInit{
         console.log(err);
       }
     })
+  }
+
+  definitionLikes(numLikes: number) {
+    let length = (numLikes.toString().length);
+    let str = (numLikes / (length > 6 ? 1e6 : 1e3) ).toString();
+
+    if (length < 4) return numLikes;
+    if (str[3] == '.') {
+      return str.slice(0, 3) + (length > 6 ? "m": "k");
+    }
+    else {
+      return str.slice(0, 4) + (length > 6 ? "m": "k");
+    }
   }
 }

@@ -373,6 +373,10 @@ main {
   overflow: hidden;
 }
 
+.user-outfits-likes-card a {
+  position: static;
+}
+
 .hover-text {
   position: absolute;
   top: 0;
@@ -417,8 +421,11 @@ main {
 }
 
 .card-like-block {
+  position: absolute;
   display: flex;
   align-items: center;
+  bottom: 5px;
+  left: 5px;
 }
 
 .btn-5 {
