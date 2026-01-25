@@ -1,33 +1,15 @@
 import { UserService } from './../../service/user-service';
 import { Outfit } from './../../models/outfit';
 import { OutfitService } from './../../service/outfit-service';
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
-import { TuiLike, TuiAvatar, TuiFilter } from '@taiga-ui/kit';
-import {FormsModule} from '@angular/forms';
-import {TuiTextfield} from '@taiga-ui/core';
-import {
-  TUI_COUNTRIES,
-  TuiChevron,
-  TuiComboBox,
-  TuiDataListWrapper,
-  TuiFilterByInputPipe,
-} from '@taiga-ui/kit';
-import {BehaviorSubject, map, type Observable} from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { TuiLike, TuiAvatar,} from '@taiga-ui/kit';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogShowOutfit } from '../dialog-show-outfit/dialog-show-outfit';
 import { publicUserInfo } from '../../models/publicUserInfo';
-
-const TAGS = {
-    EveryDay: 'На каждый день',
-    Office: 'В офис',
-    Party: 'На вечеринку',
-    Workout: 'На тренировку',
-    Meeting: 'На свидание',
-    Vacation: 'В отпуск',
-    Theater: 'В театр',
-    House: 'Для дома',
-};
+import {MatChipsModule} from '@angular/material/chips';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   standalone: true,
@@ -35,45 +17,17 @@ const TAGS = {
   imports: [
     TuiLike,
     TuiAvatar,
-    AsyncPipe,
     FormsModule,
-    TuiChevron,
-    TuiComboBox,
-    TuiDataListWrapper,
-    TuiFilterByInputPipe,
-    TuiTextfield,
-    TuiFilter,
+    MatChipsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './tape-page.html',
   styleUrl: './tape-page.css',
 })
 export class TapePage implements OnInit {
-  protected readonly countries$: Observable<string[]> = inject(TUI_COUNTRIES).pipe(
-      map(Object.values),
-  );
-
-  protected value: string | null = null;
-
-  protected readonly items = Object.values(TAGS);
-  protected readonly filters$ = new BehaviorSubject<readonly string[]>([]);
-
-  protected readonly checked$ = this.filters$.pipe(
-      map(({length}) => (length === this.items.length ? 'checked' : '')),
-  );
-
-  protected readonly model$ = this.filters$.pipe(
-      map((value) => (value.length === this.items.length ? [] : value)),
-  );
-
-  protected onModelChange(model: readonly string[]): void {
-      this.filters$.next(model);
-  }
-
-  protected toggleAll(): void {
-      this.filters$.next(
-          this.items.length === this.filters$.value.length ? [] : [...this.items],
-      );
-  }
 
   constructor (
     public dialog: MatDialog,
@@ -86,18 +40,32 @@ export class TapePage implements OnInit {
 
   ngOnInit(): void {
     this.getOutFits();
+    this.getFilterData();
   }
 
-  // TODO: Сделать выбор стилей из мок, подключить чипсы к фильтру, вывод опубликованных образов по фильтру и просто, сделать автоподрузку при скролле
+  // TODO: сделать автоподрузку при скролле, оформление селекта и чипсов
 
   outfitCards!: any;
   users!: any;
+  filters!: any;
+  selectTags!: string[];
+  selectStyles = new FormControl([]);
+  timeout: any;
 
   openDialogShowOutfit(card: Outfit, user: publicUserInfo) {
     this.dialog.open(DialogShowOutfit, {
       data: [card, user],
       maxWidth: '1080px',
     });
+  }
+
+  getFilterData() {
+    return this.OutfitService.getData().subscribe({
+      next: (data) => {
+        this.filters = data[0];
+        this.cdr.detectChanges();
+      }
+    })
   }
 
   getOutFits() {
@@ -111,6 +79,27 @@ export class TapePage implements OnInit {
         console.log(err);
       }
     })
+  }
+
+  getOutfitsWithFiltes() {
+    let urlFilters = "";
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      try {
+        this.selectTags.map(value => urlFilters += "&tag[]=" + value);
+      }
+      catch {
+        console.log("Теги не выбраны");
+      }
+      this.selectStyles.value?.map(value => urlFilters += "&style[]=" + value);
+      this.OutfitService.getOutfitsForTapeWithFilters(urlFilters).subscribe({
+        next: (data) => {
+          this.outfitCards = data;
+          this.cdr.detectChanges();
+        }
+      })
+      console.log(urlFilters);
+    }, 500);
   }
 
   getUsersInfo() {

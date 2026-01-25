@@ -25,6 +25,10 @@ export class OutfitService {
     return this.http.get<Outfit>(this.baseUrl + "outfits" + "?status="  + "public");
   }
 
+  getOutfitsForTapeWithFilters(filters: string): Observable<Outfit> {
+    return this.http.get<Outfit>(this.baseUrl + "outfits" + "?status="  + "public" + filters);
+  }
+
   getMyOutfits(id: number): Observable<Outfit> {
     return this.http.get<Outfit>(this.baseUrl + "outfits" + "?user_id="  + id);
   }

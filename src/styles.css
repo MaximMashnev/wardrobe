@@ -633,6 +633,27 @@ select {
   border: 1px solid var(--second-font-color);
 }
 
+.mat-mdc-standard-chip.mdc-evolution-chip--with-primary-graphic .mdc-evolution-chip__graphic {
+  display: none !important;
+}
+
+.mat-mdc-standard-chip.mdc-evolution-chip--with-primary-graphic .mdc-evolution-chip__action--primary {
+  padding-left: 12px !important;
+}
+
+/* .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
+  height: 44px !important;
+} */
+
+/* .mat-mdc-form-field {
+  height: calc(84px - 20px) !important;
+} */
+
+/* .mat-mdc-form-field-infix {
+  min-height: 44px !important;
+  height: 44px !important;
+} */
+
 @media screen and (max-width: 1000px){
   .log-reg-container {
     width: auto;
