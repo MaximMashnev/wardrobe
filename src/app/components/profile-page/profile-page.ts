@@ -33,10 +33,12 @@ export class ProfilePage implements OnInit {
     private routes: ActivatedRoute,
     private UserService: UserService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+    // TODO исправить ошибку: при переходе на профиль юзера 2 и последующем клике на кнопку профиль на навигации перезагрузки страницы не происходит.
+    this.routes.params.subscribe(params => this.paramId = params['profileId']);
+  }
 
   ngOnInit(): void {
-    this.getParamsUrl();
     if (this.paramId == +localStorage.getItem('userId')!) {
       this.myProfile = true;
       this.getMyProfileInfo();
@@ -48,14 +50,6 @@ export class ProfilePage implements OnInit {
         console.log(this.user);
       }
     }
-  }
-
-  getParamsUrl() {
-    this.routes.params.subscribe({
-      next: (data) => {
-        this.paramId = +data["profileId"];
-      }
-    });
   }
 
   getProfileInfo() {

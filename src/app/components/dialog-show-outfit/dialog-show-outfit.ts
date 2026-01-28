@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialog
 import { Outfit } from '../../models/outfit';
 import { publicUserInfo } from '../../models/publicUserInfo';
 import { Stuff } from '../../models/stuff';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -24,8 +25,8 @@ import { Stuff } from '../../models/stuff';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogShowOutfit implements OnInit {
-  // TODO убрать outfitId и заменить функцией, добавить открытие по ссылке
-  outfitId = input.required<string>();
+  // TODO убрать outfitId и добавить компонент или отставить и переделать, добавить открытие по ссылке
+  outfitId: number | undefined;
   isDialogMode: boolean = false;
   selectMainPhoto: number = 0;
   stuffs!: Stuff[];
@@ -35,7 +36,9 @@ export class DialogShowOutfit implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: [Outfit, publicUserInfo],
     private StuffService: StuffService,
     public cdr: ChangeDetectorRef,
+    public routes: ActivatedRoute
   ) {
+    this.routes.params.subscribe(params => this.outfitId = params["outfitId"])
     console.log(data);
     this.isDialogMode = !!this.dialogRef;
     console.log(this.isDialogMode);
@@ -46,11 +49,9 @@ export class DialogShowOutfit implements OnInit {
   }
 
   getStuffs() {
-    let url = "";
-    for (let id of this.data[0].stuffIds) {
-      url += "id=" + id + "&";
-    }
-    return this.StuffService.getStuffForOutfit(url).subscribe({
+    return this.StuffService.getStuffForOutfit(
+      this.data[0].stuffIds.sort().reduce((url, id) => url + "id=" + id + "&", "")
+    ).subscribe({
       next: (data) => {
         this.stuffs = data;
         this.cdr.detectChanges();

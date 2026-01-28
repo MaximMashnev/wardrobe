@@ -13,7 +13,6 @@ import { UserOutfits } from './components/user-outfits/user-outfits';
 import { UserLikes } from './components/user-likes/user-likes';
 import { UnknownPage } from './components/unknown-page/unknown-page';
 import { DialogShowOutfit } from './components/dialog-show-outfit/dialog-show-outfit';
-import { DialogProfileSettings } from './components/dialog-profile-settings/dialog-profile-settings';
 
 export const routes: Routes = [
   {path: "authorization", component: LoginPage},
