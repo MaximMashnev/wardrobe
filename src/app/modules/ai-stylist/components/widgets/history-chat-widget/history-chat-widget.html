@@ -1,0 +1,13 @@
+<button class="nav-btn" >Новый чат</button>
+<div class="chat-history">
+  @for (chats of chatHistory; track $index) {
+    <div class="chat-history-card">
+      <span class="m-normal sec-text">{{chats.date}}</span>
+      @for (itemChat of chats.chats; track $index) {
+        <a class="block-chat-names over-hide" [href]="itemChat.id">
+          {{itemChat.name}}
+        </a>
+      }
+    </div>
+  }
+</div>

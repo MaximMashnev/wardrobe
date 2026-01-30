@@ -1,0 +1,21 @@
+  <div class="chat-block">
+    <div class="initial-ai-window">
+      <h3>AI Stylist</h3>
+      <div class="new-chat-bts">
+        <button class="btn-6">Подбери мне идеальный образ на сегодня</button>
+        <button class="btn-5">Что надеть, если на улице +5°C и дождь?</button>
+        <button class="btn-5">Помоги выбрать обувь для нового образа</button>
+        <button class="btn-5">Посоветуй что-то неочевидное из моего гардероба</button>
+      </div>
+      <tui-textfield iconEnd="@tui.pencil">
+        <label tuiLabel>Соообщение для AI Stylist</label>
+        <textarea
+            placeholder="Напишите что-то..."
+            tuiTextarea
+            [max]="4"
+            [min]="1"
+            [(ngModel)]="chatMessage"
+        ></textarea>
+      </tui-textfield>
+    </div>
+  </div>

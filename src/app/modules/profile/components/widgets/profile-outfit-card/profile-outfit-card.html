@@ -1,0 +1,11 @@
+<div class="user-outfits-likes-card">
+  <a (click)="openDialogShowOutfit(outfit, ProfilePage)">
+    <img class="photo-card" [src]="outfit.imgs[0]">
+    <div class="hover-text"><span class="b-normal w">Смотреть образ</span></div>
+    <div class="card-like-block">
+      <like-widget
+        [outfit]="outfit"
+      ></like-widget>
+    </div>
+  </a>
+</div>

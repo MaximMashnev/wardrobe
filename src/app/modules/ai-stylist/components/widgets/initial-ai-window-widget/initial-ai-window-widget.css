@@ -1,0 +1,24 @@
+.initial-ai-window {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  background-color: var(--cards-color);
+  width: 406px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 25px;
+  padding-right: 25px;
+  gap: 36px;
+}
+
+.new-chat-bts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+[tuiAppearance][data-appearance=textfield] {
+  height: 100%;
+  background-color: var(--main-bg-color);
+}

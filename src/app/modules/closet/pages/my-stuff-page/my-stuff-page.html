@@ -1,0 +1,14 @@
+<main>
+  <div class="filters-container">
+    <button type="button" class="btn-control" tuiHint="Добавить вещь" (click)="openDialogAddStuff()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="grid-cards">
+    @for (stuff of stuffs; track stuff.id) {
+      <closet-stuff-widget
+        [stuff]="stuff"
+      ></closet-stuff-widget>
+    }
+  </div>
+</main>

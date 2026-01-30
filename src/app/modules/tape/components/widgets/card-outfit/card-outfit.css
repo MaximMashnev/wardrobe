@@ -1,0 +1,17 @@
+.tape-card-n {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--main-bg-color);
+  border-radius: 16px;
+  border: 1px solid var(--cards-color);
+  width: 315px;
+  height: 390px;
+}
+
+.card-info-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}

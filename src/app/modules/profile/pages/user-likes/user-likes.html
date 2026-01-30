@@ -1,0 +1,19 @@
+<main>
+  <div class="grid-cards">
+    @if (ProfilePage.user.likesHidden && ProfilePage.user.id != myProfileId) {
+      <span class="normal">Пользователь скрыл свои лайки</span>
+    }
+    @else {
+      @if (ProfilePage.user.likeIt.length == 0) {
+        <span class="normal">Ничего не найдено</span>
+      }
+      @else {
+        @for (outfit of likesOutfits; track outfit.id) {
+          <profile-outfit-card
+            [outfit]="outfit"
+          ></profile-outfit-card>
+        }
+      }
+    }
+  </div>
+</main>

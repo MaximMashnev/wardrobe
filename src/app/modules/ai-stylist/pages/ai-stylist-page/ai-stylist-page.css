@@ -1,0 +1,36 @@
+.chat-page {
+  display: flex;
+  flex-direction: row;
+}
+
+.chat-history-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 310px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-radius: 16px;
+  background-color: var(--cards-color);
+  gap: 10px;
+}
+
+.chat-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@media screen and (max-width: 1100px) {
+  .chat-history-bar {
+    width: calc(400px - 15px*2);
+  }
+
+  .chat-page {
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+}

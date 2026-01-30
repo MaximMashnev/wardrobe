@@ -1,0 +1,20 @@
+<main>
+  <profile-card-widget
+    [user]="user"
+    [myProfile]="myProfile"
+  ></profile-card-widget>
+  <div class="nav-page">
+    <div class="nav-btns-container">
+      <!-- TODO через раз срабатывает активная кнопка -->
+      <button type="button" class="btn-underline" routerLink="outfits" routerLinkActive="btn-underline-active">
+        Образы
+      </button>
+      <button type="button" class="btn-underline" routerLink="likes" routerLinkActive="btn-underline-active">
+        Лайки
+      </button>
+    </div>
+  </div>
+  <div class="content-container">
+    <router-outlet></router-outlet>
+  </div>
+</main>

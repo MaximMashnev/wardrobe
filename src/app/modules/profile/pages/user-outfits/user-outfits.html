@@ -1,0 +1,14 @@
+<main>
+  <div class="grid-cards">
+    @if (userOutfits.length == 0) {
+      <span class="normal">Ничего не найдено</span>
+    }
+    @else {
+      @for (outfit of userOutfits; track outfit.id) {
+        <profile-outfit-card
+          [outfit]="outfit"
+        ></profile-outfit-card>
+      }
+    }
+  </div>
+</main>

@@ -1,0 +1,23 @@
+.chat-history {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-history-card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: var(--main-bg-color);
+  border-radius: 16px;
+}
+
+.block-chat-names {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+}

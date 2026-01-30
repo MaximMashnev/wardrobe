@@ -1,0 +1,36 @@
+<div class="tape-container">
+  <div class="filters-container">
+    <mat-form-field>
+      <mat-label>Стиль</mat-label>
+      <mat-select [formControl]="selectStyles" multiple>
+        <mat-select-trigger>
+          {{selectStyles.value?.[0] || ''}}
+          @if ((selectStyles.value?.length || 0) > 1) {
+            <span class="additional-selection">
+              (+{{(selectStyles.value?.length || 0) - 1}} {{selectStyles.value?.length === 2 ? 'другой' : 'других'}})
+            </span>
+          }
+        </mat-select-trigger>
+        @for (style of this.filters.listStyles; track style.id) {
+          <mat-option [value]="style.name" (onSelectionChange)="getOutfitsWithFiltes()">{{style.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <div>
+      <mat-chip-listbox multiple [(ngModel)]="selectTags">
+          @for (item of this.filters.listTags; track $index) {
+            <mat-chip-option (selectionChange)="getOutfitsWithFiltes()">{{item.name}}</mat-chip-option>
+          }
+      </mat-chip-listbox>
+    </div>
+  </div>
+  <div class="grid-cards">
+    @for (card of outfitCards; track card.id) {
+      <card-outfit
+        [card]="card"
+        [user]="users[card.user_id-1]"
+      ></card-outfit>
+    }
+  </div>
+</div>
