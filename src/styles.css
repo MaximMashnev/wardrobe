@@ -237,10 +237,9 @@ main {
 }
 
 .grid-cards {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  justify-content: start;
+  grid-template-columns: auto auto auto;
   row-gap: 30px;
   column-gap: 15px;
 }
@@ -388,6 +387,7 @@ main {
   justify-content: center;
   opacity: 0;
   z-index: 2;
+  cursor: pointer;
   transition: opacity 0.3s ease;
 }
 
@@ -421,7 +421,6 @@ main {
 }
 
 .card-like-block {
-  position: absolute;
   display: flex;
   align-items: center;
   bottom: 5px;
@@ -684,6 +683,7 @@ select {
   }
 
   .grid-cards {
+    grid-template-columns: auto;
     justify-content: center;
   }
 
