@@ -34,49 +34,49 @@ src/
 │    │   └── core.module.ts
 │    │
 │    ├── modules/
-│    │   ├── admin/
+│    │   ├── admin/       # Администрирование
 │    │   │   ├── pages/
-│    │   │   │   ├──outfits-page/       # Таблица образов
-│    │   │   │   ├──premoderation-page/       # Таблица с премодерацией образов
-│    │   │   │   ├──stuffs-page/       # Таблица вещей
-│    │   │   │   └──users-page/       # Таблица пользователей
+│    │   │   │   ├──outfits-page/           # Таблица образов
+│    │   │   │   ├──premoderation-page/     # Таблица с премодерацией образов
+│    │   │   │   ├──stuffs-page/            # Таблица вещей
+│    │   │   │   └──users-page/             # Таблица пользователей
 │    │   │   ├── services/
-│    │   │   │   ├──premoderation-service.ts/       # Сервис для премодерации     
-│    │   │   │   └──users-service.ts/        # Сервис для управления пользователями
+│    │   │   │   ├──premoderation-service.ts/     # Сервис для премодерации     
+│    │   │   │   └──users-service.ts/             # Сервис для управления пользователями
 │    │   │   └──admin-module.ts       # Модуль админа (Роутинг)
-│    │   ├── ai-stylist/
+│    │   ├── ai-stylist/       # ИИ стилист
 │    │   │   ├── components/
 │    │   │   │   └──widgets/  
-│    │   │   │      ├──history-chat-widget/       # Виджет для истории чата
-│    │   │   │      └──initial-ai-window-widget/       # Виджет начального окна  
+│    │   │   │      ├──history-chat-widget/         # Виджет для истории чата
+│    │   │   │      └──initial-ai-window-widget/    # Виджет начального окна  
 │    │   │   ├── pages/
 │    │   │   │   └──ai-stylist-page/       # Страница ИИ стилиста
-│    │   │   └──ai-stylist-module.ts       # Модуль ИИ стилиста
-│    │   ├── auth/
+│    │   │   └──ai-stylist-module.ts
+│    │   ├── auth/       # Аутентификация
 │    │   │   ├── pages/
 │    │   │   │   ├──login-page/       # Страница авторизации
 │    │   │   │   └──register-page/    # Страница регистрации
 │    │   │   ├── services/
 │    │   │   │   └──auth.ts/        # Сервис для авторизации, регистрации, получения авторизованного пользователя, проверка на авторизацию, админа
 │    │   │   └──auth-module.ts       # Модуль авторизации (Роутинг)
-│    │   ├── calendar/
+│    │   ├── calendar/       # Календарь 
 │    │   │   ├── pages/
 │    │   │   │   └──calendar-page/    # Страница календаря
-│    │   │   └──calendar-module.ts       # Модуль календаря
-│    │   ├── closet/
+│    │   │   └──calendar-module.ts
+│    │   ├── closet/       # Гардероб
 │    │   │   ├── pages/
-│    │   │   │   ├──closet-page/       # Страница одежды
-│    │   │   │   ├──my-outfit-page/       # Вкладка с образами
+│    │   │   │   ├──closet-page/      # Страница одежды
+│    │   │   │   ├──my-outfit-page/   # Вкладка с образами
 │    │   │   │   └──my-stuff-page/    # Вкладка с вещями
 │    │   │   └──closet-module.ts       # Модуль одежды (Роутинг)
-│    │   ├── outfit/
+│    │   ├── outfit/       # Работа с образами
 │    │   │   ├── components/
 │    │   │   │   └──dialogs/
 │    │   │   │      └──dialog-add-edit-outfit/       # Окно редактирования и добавления образа 
 │    │   │   ├── services/
 │    │   │   │   └──outfit-service.ts/        # Сервис для CRUD, фильтрации образов
-│    │   │   └──outfit-module.ts       # Модуль образов
-│    │   ├── profile/
+│    │   │   └──outfit-module.ts
+│    │   ├── profile/       # Профиль
 │    │   │   ├── components/
 │    │   │   │   ├──dialogs/
 │    │   │   │   │  ├──dialog-edit-profile/       # Окно редактирования профиля   
@@ -91,7 +91,7 @@ src/
 │    │   │   ├── services/
 │    │   │   │   └──profile-service.ts/        # Сервис редактирования профиля
 │    │   │   └──profile-module.ts       # Модуль профиля (Роутинг)
-│    │   └── stuff/
+│    │   └── stuff/       # Работа с вещами
 │    │   │   ├── components/
 │    │   │   │   ├──dialogs/
 │    │   │   │   │  ├──dialog-add-edit-stuff/          # Окно редактирования, добавления вещи
@@ -101,16 +101,17 @@ src/
 │    │   │   ├── services/
 │    │   │   │   └──outfit-service.ts/        # Сервис для CRUD, фильтрации вещей
 │    │   │   └──stuff-module.ts
-│    │   └── tape/
-│    │   │   ├── components/
-│    │   │   │   └──widgets/  
-│    │   │   │      └──card-outfit/       # Виджет карточки образа для ленты
-│    │   │   ├── pages/
-│    │   │   │   └──tape-page/     # Страница ленты
-│    │   │   └──stuff-module.ts
+│    │   └── tape/       # Лента
+│    │       ├── components/
+│    │       │   └──widgets/  
+│    │       │      └──card-outfit/       # Виджет карточки образа для ленты
+│    │       ├── pages/
+│    │       │   └──tape-page/     # Страница ленты
+│    │       └──stuff-module.ts
 │    │
 │    ├── pages/       # Страницы доступные всем
 │    │   └── unknown-page/       # Неизвестная страница
+│    │ 
 │    └── shared/
 │        ├── components/       # Общие компоненты
 │        │   ├── dialogs/      # Диалоговые окна
@@ -119,10 +120,10 @@ src/
 │        │   │   └──like-widget/      # Виджет лайка
 │        │   └──shared-module.ts
 │        ├── models/           # Сущности
-│        │   ├──outfit/      # Модель образа
-│        │   ├──publicUserInfo/      # Модель публичного пользователя
-│        │   ├──stuff/      # Модель вещей
-│        │   └──user/      # Модель пользователя
+│        │   ├──outfit/            # Модель образа
+│        │   ├──publicUserInfo/    # Модель публичного пользователя
+│        │   ├──stuff/             # Модель вещей
+│        │   └──user/              # Модель пользователя
 │        ├── services/
 │        │   └── user-service/      # Сервис получения публичного пользователя
 │        └──shared-module.ts
