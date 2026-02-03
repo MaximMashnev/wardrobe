@@ -21,8 +21,8 @@ export class ConfigService {
   ) {
   }
 
-  protected async loadConfig(): Promise<void> {
-    this.config = await firstValueFrom(this.http.get<Config>("/assets/config.json"));
+  async loadConfig(): Promise<void> {
+    this.config = await firstValueFrom(this.http.get<Config>("/assets/configs/config.json"));
   }
 
   getEndpointUrl(endpointKey: string): string {

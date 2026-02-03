@@ -23,7 +23,6 @@ export class UserLikes implements OnInit {
 
   ngOnInit(): void {
     this.getUserLikes();
-    console.log("ngOnInit likes")
   }
 
   getUserLikes() {
