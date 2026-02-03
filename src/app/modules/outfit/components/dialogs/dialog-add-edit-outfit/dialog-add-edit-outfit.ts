@@ -1,11 +1,11 @@
 import { StuffService } from '../../../../stuff/services/stuff-service';
 import { OutfitService } from '../../../services/outfit-service';
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, importProvidersFrom, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule, MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { Stuff } from '../../../../../shared/models/stuff';
-import { DialogSelStuffForOutfits } from '../../../../stuff/pages/dialog-sel-stuff-for-outfits/dialog-sel-stuff-for-outfits';
+import { DialogSelStuffForOutfits } from '../../../../stuff/components/dialogs/dialog-sel-stuff-for-outfits/dialog-sel-stuff-for-outfits';
 import { Outfit } from '../../../../../shared/models/outfit';
 
 @Component({
@@ -72,7 +72,7 @@ export class DialogAddEditOutfit implements OnInit {
   }
 
   getDataForOutfit() {
-    this.OutfitService.getData().subscribe({
+    this.OutfitService.getDataOutfits().subscribe({
       next: (data) => {
         this.dataOutfits = data[0];
         this.cdr.detectChanges();

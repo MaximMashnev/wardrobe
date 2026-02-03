@@ -1,6 +1,6 @@
 import { MyStuffPage } from './../../../../closet/pages/my-stuff-page/my-stuff-page';
 import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { DialogAddEditStuff } from '../../../pages/dialog-add-edit-stuff/dialog-add-edit-stuff';
+import { DialogAddEditStuff } from '../../dialogs/dialog-add-edit-stuff/dialog-add-edit-stuff';
 import { Stuff } from '../../../../../shared/models/stuff';
 import { MatDialog } from '@angular/material/dialog';
 import { StuffService } from '../../../services/stuff-service';

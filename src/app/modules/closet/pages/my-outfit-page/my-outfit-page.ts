@@ -68,7 +68,7 @@ export class MyOutfitPage implements OnInit {
     })
   }
 
-  deleteMyStuff(id: number) {
+  deleteMyOutfit(id: number) {
     this.OutfitService.deleteOutfit(id).subscribe({
       next: (result) => {
         console.log("del success");
@@ -77,7 +77,7 @@ export class MyOutfitPage implements OnInit {
     });
   }
 
-  publishMyStuff(outfit: Outfit) {
+  publishMyOutfit(outfit: Outfit) {
     outfit.status = "hidden";
     this.OutfitService.publishOutfit(outfit).subscribe({
       next: (result) => {

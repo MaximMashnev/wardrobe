@@ -43,6 +43,7 @@ export class LoginPage implements OnInit{
       next: (loginData) => {
         localStorage.setItem("Bearer", loginData.token);
         localStorage.setItem("userId", loginData.data.id);
+        localStorage.setItem("role", loginData.data.role);
         console.log('login successful');
 
         this.router.navigate(['/']);

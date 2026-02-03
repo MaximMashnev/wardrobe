@@ -4,7 +4,7 @@ import { MatIconModule} from '@angular/material/icon';
 import { Stuff } from '../../../../shared/models/stuff';
 import { StuffService } from '../../../stuff/services/stuff-service';
 import { ClosetStuffWidget } from "../../../stuff/components/widgets/closet-stuff-widget/closet-stuff-widget";
-import { DialogAddEditStuff } from '../../../stuff/pages/dialog-add-edit-stuff/dialog-add-edit-stuff';
+import { DialogAddEditStuff } from '../../../stuff/components/dialogs/dialog-add-edit-stuff/dialog-add-edit-stuff';
 
 @Component({
   selector: 'app-my-stuff-page',
