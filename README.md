@@ -1,59 +1,150 @@
 # Wardrobe
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.3.
+Веб-приложение для управления личным гардеробом, разработанное с ипользованием Angular и TypeScript. В будущем планируется добавить ИИ помощника для подбора гардероба.
 
-## Development server
+## Цель проекта
 
-To start a local development server, run:
+Проект создан для демонстрации:
 
-```bash
-ng serve
-```
+- модульной архитектуры Angular
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- переиспользуемых компонентов
 
-## Code scaffolding
+- защиты маршрутов и разграничения ролей
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- разделения UI, бизнес-логики и инфраструктурного кода
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Структура проекта
 
 ```bash
-ng generate --help
+src/
+├── app/                 
+│    ├── core/
+│    │   ├── guards/       # Защита
+│    │   │   ├── auth.guard.ts       # Проверка авторизации
+│    │   │   └── admin.guard.ts      # Проверка роли админа
+│    │   ├── imports/       # Общие импорты
+│    │   │   └── shared.imports.ts
+│    │   ├── interceptors/       # Интерсепторы
+│    │   │   └── interceptor.ts
+│    │   ├── layouts/
+│    │   │   └── main-page/       # Страница приложения
+│    │   ├── services/       # Глобальные сервисы
+│    │   │   └── config-service.ts       # Сервис для api
+│    │   └── core.module.ts
+│    │
+│    ├── modules/
+│    │   ├── admin/       # Администрирование
+│    │   │   ├── pages/
+│    │   │   │   ├── outfits-page/           # Таблица образов
+│    │   │   │   ├── premoderation-page/     # Таблица с премодерацией образов
+│    │   │   │   ├── stuffs-page/            # Таблица вещей
+│    │   │   │   └── users-page/             # Таблица пользователей
+│    │   │   ├── services/
+│    │   │   │   ├── premoderation-service.ts     # Сервис для премодерации     
+│    │   │   │   └── users-service.ts             # Сервис для управления пользователями
+│    │   │   └── admin-module.ts       # Модуль админа (Роутинг)
+│    │   │
+│    │   ├── ai-stylist/       # ИИ стилист
+│    │   │   ├── components/
+│    │   │   │   └── widgets/  
+│    │   │   │      ├── history-chat-widget/         # Виджет для истории чата
+│    │   │   │      └── initial-ai-window-widget/    # Виджет начального окна  
+│    │   │   ├── pages/
+│    │   │   │   └── ai-stylist-page/       # Страница ИИ стилиста
+│    │   │   └── ai-stylist-module.ts
+│    │   │
+│    │   ├── auth/       # Аутентификация
+│    │   │   ├── pages/
+│    │   │   │   ├── login-page/       # Страница авторизации
+│    │   │   │   └── register-page/    # Страница регистрации
+│    │   │   ├── services/
+│    │   │   │   └── auth.ts        # Сервис для авторизации, регистрации, получения авторизованного пользователя, проверка на авторизацию, админа
+│    │   │   └──auth-module.ts       # Модуль авторизации (Роутинг)
+│    │   │
+│    │   ├── calendar/       # Календарь 
+│    │   │   ├── pages/
+│    │   │   │   └── calendar-page/    # Страница календаря
+│    │   │   └── calendar-module.ts
+│    │   │
+│    │   ├── closet/       # Гардероб
+│    │   │   ├── pages/
+│    │   │   │   ├── closet-page/      # Страница одежды
+│    │   │   │   ├── my-outfit-page/   # Вкладка с образами
+│    │   │   │   └── my-stuff-page/    # Вкладка с вещями
+│    │   │   └── closet-module.ts       # Модуль одежды (Роутинг)
+│    │   │
+│    │   ├── outfit/       # Работа с образами
+│    │   │   ├── components/
+│    │   │   │   └── dialogs/
+│    │   │   │      └── dialog-add-edit-outfit/       # Окно редактирования и добавления образа 
+│    │   │   ├── services/
+│    │   │   │   └── outfit-service.ts/        # Сервис для CRUD, фильтрации образов
+│    │   │   └── outfit-module.ts
+│    │   │
+│    │   ├── profile/       # Профиль
+│    │   │   ├── components/
+│    │   │   │   ├── dialogs/
+│    │   │   │   │  ├── dialog-edit-profile/       # Окно редактирования профиля   
+│    │   │   │   │  └── dialog-profile-settings/   # Окно редактирования настроек профиля  
+│    │   │   │   └── widgets/  
+│    │   │   │      ├── profile-card-widget/       # Виджет карточки профиля
+│    │   │   │      └── profile-outfit-card/       # Виджет карточки образа в профиле
+│    │   │   ├── pages/
+│    │   │   │   ├── profile-page/     # Страница профиля
+│    │   │   │   ├── user-likes/       # Вкладка с образами, которые понравились пользователю
+│    │   │   │   └── user-outfits/     # Вкладка с опубликованными пользователем образами
+│    │   │   ├── services/
+│    │   │   │   └── profile-service.ts        # Сервис редактирования профиля
+│    │   │   └── profile-module.ts       # Модуль профиля (Роутинг)
+│    │   │
+│    │   ├── stuff/       # Работа с вещами
+│    │   │   ├── components/
+│    │   │   │   ├──dialogs/
+│    │   │   │   │  ├──dialog-add-edit-stuff/          # Окно редактирования, добавления вещи
+│    │   │   │   │  └──dialog-sel-stuff-for-outfits/   # Окно выбора вещи для добавления в образ
+│    │   │   │   └──widgets/  
+│    │   │   │      └──closet-stuff-widget/       # Виджет карточки вещи
+│    │   │   ├── services/
+│    │   │   │   └──outfit-service.ts        # Сервис для CRUD, фильтрации вещей
+│    │   │   └──stuff-module.ts
+│    │   │
+│    │   └── tape/       # Лента
+│    │       ├── components/
+│    │       │   └── widgets/  
+│    │       │      └── card-outfit/       # Виджет карточки образа для ленты
+│    │       ├── pages/
+│    │       │   └── tape-page/     # Страница ленты
+│    │       └── stuff-module.ts
+│    │
+│    ├── pages/       # Страницы доступные всем
+│    │   └── unknown-page/       # Неизвестная страница
+│    │ 
+│    ├── shared/
+│    │   ├── components/       # Общие компоненты
+│    │   │   ├── dialogs/      # Диалоговые окна
+│    │   │   │   └── dialog-show-outfit/      # Окно просмотра образа
+│    │   │   ├── widgets/      # Виджеты
+│    │   │   │   └── like-widget/      # Виджет лайка
+│    │   │   └── shared-module.ts
+│    │   ├── models/           # Сущности
+│    │   │   ├── outfit.ts            # Модель образа
+│    │   │   ├── publicUserInfo.ts     # Модель публичного пользователя
+│    │   │   ├── stuff.ts              # Модель вещей
+│    │   │   └── user.ts               # Модель пользователя
+│    │   ├── services/
+│    │   │   └── user-service.ts      # Сервис получения публичного пользователя
+│    │   └── shared-module.ts
+│    │ 
+│    └── app/
+│        ├── app.config.ts
+│        ├── app.css
+│        ├── app.html
+│        ├── app.routes.ts      # Основной роутинг с защитой
+│        └── app.ts
+│
+└── assets/
+    ├── configs/       # Конфигурации (api)
+    └── images/        # Иконки, изображения
+        └── ...
 ```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
