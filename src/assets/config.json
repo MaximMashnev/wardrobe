@@ -1,0 +1,16 @@
+{
+  "api": {
+    "baseUrl": "https://7a70416d1ec137c0.mokky.dev",
+    "endpoints" : {
+      "dataOutfits": "/data-outfits",
+      "dataStuffs": "/data-stuffs",
+      "filters": "/filters",
+      "stuffs": "/stuffs",
+      "outfits": "/outfits",
+      "users": "/users",
+      "auth": "/auth",
+      "authMe": "/auth_me",
+      "register": "/register"
+    }
+  }
+}

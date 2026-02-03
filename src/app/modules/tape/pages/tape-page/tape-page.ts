@@ -59,7 +59,7 @@ export class TapePage implements OnInit {
   }
 
   getFilterData() {
-    return this.OutfitService.getData().subscribe({
+    return this.OutfitService.getDataOutfits().subscribe({
       next: (data) => {
         this.filters = data[0];
         this.cdr.detectChanges();
