@@ -3,10 +3,10 @@ import { provideAnimations } from "@angular/platform-browser/animations";
 import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
-import { routes } from './app.routes';
+import { routes } from '../app/app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authTokenInterceptor } from "./core/interceptors/interceptor";
-import { ConfigService } from "./core/services/config-service";
+import { authTokenInterceptor } from "../core/interceptors/interceptor";
+import { ConfigService } from "../core/services/config-service";
 
 export const appConfig: ApplicationConfig = {
   providers: [
