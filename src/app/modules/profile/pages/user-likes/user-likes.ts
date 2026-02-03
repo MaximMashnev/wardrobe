@@ -1,9 +1,9 @@
 import { OutfitService } from '../../../outfit/services/outfit-service';
 import { ProfilePage } from '../profile-page/profile-page';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { Outfit } from '../../../../shared/models/outfit';
 import { ProfileOutfitCard } from "../../components/widgets/profile-outfit-card/profile-outfit-card";
+import { catchError, map} from 'rxjs';
 
 @Component({
   selector: 'app-user-likes',
@@ -11,33 +11,31 @@ import { ProfileOutfitCard } from "../../components/widgets/profile-outfit-card/
   templateUrl: './user-likes.html',
   styleUrl: './user-likes.css',
 })
-export class UserLikes implements OnInit{
+export class UserLikes implements OnInit {
 
-  likesOutfits!: Outfit[];
+  likesOutfits: Outfit[] | undefined;
   myProfileId: number = +localStorage.getItem("userId")!;
 
   constructor (
-    public dialog: MatDialog,
     public ProfilePage: ProfilePage,
     public OutfitService: OutfitService,
-    public cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
     this.getUserLikes();
+    console.log("ngOnInit likes")
   }
 
   getUserLikes() {
-    let urlLikes = "";
-    Object.values(this.ProfilePage.user.likeIt).map(value => urlLikes += "id=" + value + "&")
-    this.OutfitService.getLikedOutfits(urlLikes).subscribe({
-      next: (data) => {
-        this.likesOutfits = data;
-        this.cdr.detectChanges();
-      },
-      error(err) {
-          console.log(err);
-      },
-    })
+    this.OutfitService.getLikedOutfits(
+      Object.values(this.ProfilePage.user!.likeIt).reduce((url, id) => url + `id=${id}&`, "")
+    ).pipe(
+      map(
+        (data) => this.likesOutfits = data
+      ),
+      catchError(
+        async (err) => console.log(err)
+      )
+    )
   }
 }

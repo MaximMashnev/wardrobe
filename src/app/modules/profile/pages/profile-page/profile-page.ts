@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Auth } from './../../../auth/services/auth';
+import { Component, OnInit} from '@angular/core';
 import { MatIconModule } from "@angular/material/icon";
 import {TuiHint} from '@taiga-ui/core';
 import { RouterOutlet, RouterLinkActive, RouterLinkWithHref, ActivatedRoute} from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { User } from '../../../../shared/models/user';
 import { UserService } from '../../../../shared/services/user-service';
 import { publicUserInfo } from '../../../../shared/models/publicUserInfo';
@@ -21,18 +21,15 @@ import { ProfileCardWidget } from "../../components/widgets/profile-card-widget/
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })
-export class ProfilePage implements OnInit, OnChanges {
+export class ProfilePage implements OnInit{
   myProfile: boolean = false;
-  userData!: publicUserInfo;
-  myUserData!: User;
-  user!: any;
+  user!: publicUserInfo | User | null;
   public paramId!: number;
 
   constructor (
-    public dialog: MatDialog,
     private routes: ActivatedRoute,
     private UserService: UserService,
-    private cdr: ChangeDetectorRef
+    private Auth: Auth
   ) {
     // TODO исправить ошибку: при переходе на профиль юзера 2 и последующем клике на кнопку профиль на навигации перезагрузки страницы не происходит.
     this.routes.params.subscribe(params => this.paramId = params['profileId']);
@@ -52,17 +49,10 @@ export class ProfilePage implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log("change");
-  }
-
   getProfileInfo() {
     this.UserService.getUserInfo(this.paramId).subscribe({
       next: (data) => {
-        this.userData = data;
-        // TODO убрать userData или user
-        this.user = this.userData;
-        this.cdr.detectChanges();
+        this.user = data
       },
       error: (Error) => {
         console.log(Error);
@@ -71,14 +61,6 @@ export class ProfilePage implements OnInit, OnChanges {
   }
 
   getMyProfileInfo() {
-    this.UserService.getMe().subscribe({
-      next: (data) => {
-        this.myUserData = data;
-        // TODO убрать myUserData или user
-        this.user = this.myUserData;
-        console.log(this.user);
-        this.cdr.detectChanges();
-      }
-    })
+    this.user = this.Auth.getUser();
   }
 }

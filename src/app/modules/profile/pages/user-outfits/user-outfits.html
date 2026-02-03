@@ -1,6 +1,9 @@
 <main>
   <div class="grid-cards">
-    @if (userOutfits.length == 0) {
+    @if (!userOutfits) {
+      <span class="normal">Загрузка...</span>
+    }
+    @else if (userOutfits.length === 0) {
       <span class="normal">Ничего не найдено</span>
     }
     @else {

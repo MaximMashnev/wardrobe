@@ -1,3 +1,4 @@
+import { Auth } from './../../../modules/auth/services/auth';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,19 +11,20 @@ import { RouterOutlet, RouterLinkActive, RouterLinkWithHref, Router } from '@ang
     MatButtonModule,
     RouterOutlet,
     RouterLinkActive,
-    RouterLinkWithHref
-  ],
+    RouterLinkWithHref,
+],
   templateUrl: './main-page.html',
   styleUrl: './main-page.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainPage {
-  isAuthorized: boolean = true;
-  myUrl = 'profile/' + localStorage.getItem('userId');
+  isAuthorized: boolean = false;
+  isAdmin: boolean = false;
   userId? = localStorage.getItem('userId');
 
   constructor (
     private router: Router,
+    public Auth: Auth
   ) {
     this.checkAuth();
   }
@@ -33,6 +35,17 @@ export class MainPage {
     }
     else {
       this.isAuthorized = true;
+      this.checkAdmin();
+    }
+  }
+
+  checkAdmin() {
+    // this.isAdmin = (this.Auth.getUser()?.role == "admin") ? true : false;
+    if (localStorage.getItem("role") == "admin") {
+      this.isAdmin = true;
+    }
+    else {
+      this.isAdmin = false;
     }
   }
 }

@@ -1,8 +1,6 @@
 import { ProfilePage } from '../profile-page/profile-page';
 import { OutfitService } from '../../../outfit/services/outfit-service';
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogShowOutfit } from '../../../../shared/components/dialogs/dialog-show-outfit/dialog-show-outfit';
+import { Component, OnInit} from '@angular/core';
 import { Outfit } from '../../../../shared/models/outfit';
 import { ProfileOutfitCard } from "../../components/widgets/profile-outfit-card/profile-outfit-card";
 
@@ -12,13 +10,11 @@ import { ProfileOutfitCard } from "../../components/widgets/profile-outfit-card/
   templateUrl: './user-outfits.html',
   styleUrl: './user-outfits.css',
 })
-export class UserOutfits implements OnInit{
-  userOutfits!: Outfit[];
+export class UserOutfits implements OnInit {
+  userOutfits: Outfit[] | undefined;
 
   constructor (
-    public dialog: MatDialog,
     private OutfitService: OutfitService,
-    private cdr: ChangeDetectorRef,
     private ProfilePage: ProfilePage,
   ) {}
 
@@ -30,8 +26,6 @@ export class UserOutfits implements OnInit{
     this.OutfitService.getUserPublishedOutfits(this.ProfilePage.paramId).subscribe({
       next: (data) => {
         this.userOutfits = data;
-        console.log(this.userOutfits);
-        this.cdr.detectChanges();
       },
       error: (err) => {
         console.log(err);

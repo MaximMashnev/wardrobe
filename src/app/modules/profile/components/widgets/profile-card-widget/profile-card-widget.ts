@@ -1,11 +1,12 @@
+import { ProfileService } from './../../../services/profile-service';
 import { User } from './../../../../../shared/models/user';
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from "@angular/material/icon";
 import { RouterLinkWithHref } from '@angular/router';
-import { UserService } from '../../../../../shared/services/user-service';
 import { DialogProfileSettings } from '../../dialogs/dialog-profile-settings/dialog-profile-settings';
 import { DialogEditProfile } from '../../dialogs/dialog-edit-profile/dialog-edit-profile';
+import { publicUserInfo } from '../../../../../shared/models/publicUserInfo';
 
 @Component({
   selector: 'profile-card-widget',
@@ -22,15 +23,12 @@ export class ProfileCardWidget {
   myProfile: boolean = false;
 
   @Input()
-  user!: any;
+  user!: publicUserInfo | User | null;
 
   constructor (
     public dialog: MatDialog,
-    private UserService: UserService,
-    private cdr: ChangeDetectorRef,
-  ) {
-
-  }
+    private ProfileService: ProfileService
+  ) {}
 
 
   openDialogSettings() {
@@ -40,12 +38,11 @@ export class ProfileCardWidget {
     });
     dialogSettingsUser.afterClosed().subscribe((result: User) => {
       if (result != null) {
-        this.UserService.editProfile(result).subscribe({
+        this.ProfileService.editProfile(result).subscribe({
           next(value) {
             console.log("editing setting success");
           },
         });
-        this.cdr.detectChanges();
       };
     });
   }
@@ -57,12 +54,11 @@ export class ProfileCardWidget {
     });
     dialogEditUser.afterClosed().subscribe((result: User) => {
       if (result != null) {
-        this.UserService.editProfile(result).subscribe({
+        this.ProfileService.editProfile(result).subscribe({
           next(value) {
             console.log("editing profile success");
           },
         });
-        this.cdr.detectChanges();
       };
     });
   }
