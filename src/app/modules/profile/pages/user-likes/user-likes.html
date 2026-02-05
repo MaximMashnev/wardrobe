@@ -3,7 +3,7 @@
     @if (!likesOutfits) {
       <span class="normal">Загрузка...</span>
     }
-    @else if (ProfilePage.user!.likesHidden && ProfilePage.user!.id != myProfileId) {
+    @else if (ProfilePage.user!.likesHidden && !ProfilePage.isMyProfile) {
       <span class="normal">Пользователь скрыл свои лайки</span>
     }
     @else if (ProfilePage.user!.likeIt.length === 0) {

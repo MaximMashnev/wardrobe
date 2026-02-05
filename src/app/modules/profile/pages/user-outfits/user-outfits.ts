@@ -1,6 +1,6 @@
 import { ProfilePage } from '../profile-page/profile-page';
 import { OutfitService } from '../../../outfit/services/outfit-service';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Outfit } from '../../../../shared/models/outfit';
 import { ProfileOutfitCard } from "../../components/widgets/profile-outfit-card/profile-outfit-card";
 
@@ -16,6 +16,7 @@ export class UserOutfits implements OnInit {
   constructor (
     private OutfitService: OutfitService,
     private ProfilePage: ProfilePage,
+    private readonly cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +27,7 @@ export class UserOutfits implements OnInit {
     this.OutfitService.getUserPublishedOutfits(this.ProfilePage.paramId).subscribe({
       next: (data) => {
         this.userOutfits = data;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.log(err);

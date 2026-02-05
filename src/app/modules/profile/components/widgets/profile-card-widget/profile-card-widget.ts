@@ -20,10 +20,10 @@ import { publicUserInfo } from '../../../../../shared/models/publicUserInfo';
 export class ProfileCardWidget {
 
   @Input()
-  myProfile: boolean = false;
+  isMyProfile: boolean = false;
 
   @Input()
-  user!: publicUserInfo | User | null;
+  user!: publicUserInfo | User;
 
   constructor (
     public dialog: MatDialog,

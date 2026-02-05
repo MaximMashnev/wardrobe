@@ -660,6 +660,25 @@ select {
   height: 44px !important;
 } */
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: medium;
+  background: var(--cards-color);
+  box-shadow: 0 -200px 100px -120px var(--main-bg-color) inset;
+  inset: 100px;
+  animation: background 2s infinite alternate;
+}
+
+@keyframes background {
+  50% {
+    background: var(--main-bg-color);
+    box-shadow: 0 -200px 100px -100px var(--cards-color) inset;
+  }
+}
+
 @media screen and (max-width: 1000px){
   .log-reg-container {
     width: auto;

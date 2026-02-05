@@ -1,9 +1,6 @@
-import { Auth } from './../../../auth/services/auth';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatIconModule } from "@angular/material/icon";
-import {TuiHint} from '@taiga-ui/core';
-import { RouterOutlet, RouterLinkActive, RouterLinkWithHref, ActivatedRoute} from '@angular/router';
-import { User } from '../../../../shared/models/user';
+import { RouterOutlet, RouterLinkActive, ActivatedRoute, RouterLinkWithHref, Router} from '@angular/router';
 import { UserService } from '../../../../shared/services/user-service';
 import { publicUserInfo } from '../../../../shared/models/publicUserInfo';
 import { ProfileCardWidget } from "../../components/widgets/profile-card-widget/profile-card-widget";
@@ -12,7 +9,6 @@ import { ProfileCardWidget } from "../../components/widgets/profile-card-widget/
   selector: 'app-profile-page',
   imports: [
     MatIconModule,
-    TuiHint,
     RouterOutlet,
     RouterLinkActive,
     RouterLinkWithHref,
@@ -22,45 +18,39 @@ import { ProfileCardWidget } from "../../components/widgets/profile-card-widget/
   styleUrl: './profile-page.css',
 })
 export class ProfilePage implements OnInit{
-  myProfile: boolean = false;
-  user!: publicUserInfo | User | null;
+
+  public isMyProfile: boolean = false;
+  public user: publicUserInfo | null = null;
   public paramId!: number;
 
   constructor (
     private routes: ActivatedRoute,
     private UserService: UserService,
-    private Auth: Auth
-  ) {
-    // TODO исправить ошибку: при переходе на профиль юзера 2 и последующем клике на кнопку профиль на навигации перезагрузки страницы не происходит.
-    this.routes.params.subscribe(params => this.paramId = params['profileId']);
-  }
+    private readonly cdr: ChangeDetectorRef,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    if (this.paramId == +localStorage.getItem('userId')!) {
-      this.myProfile = true;
-      this.getMyProfileInfo();
-    }
-    else {
+    this.routes.params.subscribe((params) => {
+      this.paramId = params['profileId'];
       this.getProfileInfo();
-      if (this.user == undefined) {
-        // this.router.navigate(['/not-found']);
-        console.log(this.user);
-      }
+      this.cdr.detectChanges();
+    });
+    if (this.paramId == +localStorage.getItem('userId')!) {
+      this.isMyProfile = true;
     }
   }
 
   getProfileInfo() {
     this.UserService.getUserInfo(this.paramId).subscribe({
       next: (data) => {
-        this.user = data
+        this.user = data;
+        this.cdr.detectChanges();
       },
       error: (Error) => {
         console.log(Error);
+        this.router.navigate(['/not-found']);
       }
     })
-  }
-
-  getMyProfileInfo() {
-    this.user = this.Auth.getUser();
   }
 }
